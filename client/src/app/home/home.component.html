@@ -1,0 +1,28 @@
+<div class="content">
+    <div *ngIf="alerta">
+        <span>EL JUEGO COMENZARA PRONTO</span>
+    </div>
+    <ng-container
+        *ngIf="entroASala; then estaDentro; else estaEsperando">
+    </ng-container>
+
+    <ng-template #estaEsperando>
+        <div class="container">
+            <h1 class="welcome">BIENVENIDO!</h1>
+            <form [formGroup]="jugadorForm" (ngSubmit)="entrarSala(jugadorForm.value)">
+                    <div>
+                        <input class="input" id="name" type="text" formControlName="name" placeholder="Nombre">
+                    </div>
+                <button class="entrar" type="submit">Entrar</button>
+            </form>
+        </div>
+    </ng-template>
+
+    <ng-template #estaDentro>
+        <div class="container">
+            <h1 class="welcome">Hola, {{nombreJugador}}</h1>
+            <p>Por favor, espera a que inicien la sala de Juego.</p>
+        </div>
+    </ng-template>
+
+</div>
