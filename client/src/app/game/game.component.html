@@ -5,7 +5,7 @@
     <div class="container">
         <div class="card">
             <img src="../../assets/podium.svg" alt="">
-            <button class="btn">JUGAR!</button>
+            <a href="jugar" class="btn">JUGAR!</a>
         </div>
         <div class="card">
             <img src="../../assets/presentation.svg" alt="">
@@ -13,6 +13,16 @@
         </div>
     </div>
     <button class="btn" (click)="alertar()">ALERTAR</button>
+    <div class="container-2">
+        <h2>Preguntas</h2>
+        <div class="jugadores">
+            <ul>
+                <li *ngFor="let pregunta of preguntas | async" style="margin: 20px 0px;">
+                    <span class="jugador">{{pregunta.pregunta}}</span>
+                </li>
+            </ul>
+        </div>
+    </div>
     <div class="container-2">
         <h2>Jugadores esperando {{jugadores.length}}</h2>
         <div class="jugadores">
