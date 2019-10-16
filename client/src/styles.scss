@@ -3,6 +3,7 @@
     margin: 0;
     padding: 0;
     font-family: 'Poppins-bold', 'arial', sans-serif;
+    outline: none;
 }
 
 @font-face {
@@ -12,4 +13,22 @@
 
 body {
     background-color: #ECEFF1;
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+html, body { height: 100%; }
+
+.btn {
+    padding: 5px 10px;
+    border-radius: 5px;
+    border: none;
+
+    &:hover {
+        cursor: pointer;
+    }
+
+    &.btn-danger {
+        background-color: #fd397a;
+        color: white;
+    }
 }

@@ -11,16 +11,31 @@ export class ApiService {
 
   constructor(private http: HttpClient) { }
 
+  // Pregunta
   getPreguntas(): Observable<Object> {
     return this.http.get(this.baseUri + '/pregunta')
   }
 
+  getRespuestasPorPregunta(idPregunta): Observable<Object> {
+    return this.http.get(`${this.baseUri}/pregunta/${idPregunta}/respuestas`);
+  }
+  
+  // Jugador
+  getJugadores(): Observable<Object> {
+    return this.http.get(this.baseUri + '/jugador')
+  }
+
+  // Juego
   getJuegos(): Observable<Object> {
     return this.http.get(this.baseUri + '/juego')
   }
 
-  getJugadores(): Observable<Object> {
-    return this.http.get(this.baseUri + '/jugador')
+  getJuego(id): Observable<Object> {
+    return this.http.get(this.baseUri + '/juego/' + id);
+  }
+
+  getPreguntasPorJuego(idJuego): Observable<any> {
+    return this.http.get(`${this.baseUri}/juego/${idJuego}/preguntas`);
   }
 
 }

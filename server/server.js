@@ -7,7 +7,8 @@ let http = require('http');
 let server = http.createServer(app);
 let io = require('socket.io')(server);
 
-//
+//Otros
+let Jugador = require('./models/JugadorModel');
 
 const port = process.env.PORT || 5000;
 const url = '192.168.1.62';
@@ -21,10 +22,18 @@ routes(app);
 
 // Conexion principal del socket
 io.on('connection' , (socket) => {
-
+    const idJugador = socket.id.trim();
+    let adentro = false;
     // Una persona entro a la sala.
     socket.on('entrarSala' , function(jugador){
-        console.log(jugador + ' entro a la sala. ID: ' + this.conn.id);
+        console.log(`${idJugador}: ${jugador.nombre}`);
+        adentro = true;
+        jugador.idJugador = idJugador;
+        Jugador.createJugador({
+            idJugador:idJugador,
+            nombre: jugador.nombre,
+            puntaje: 0
+        } , () => {});
         io.emit('entrarSala' , jugador);
     })
 
@@ -32,6 +41,18 @@ io.on('connection' , (socket) => {
     socket.on('alertar' , () => {
         io.emit('alerta');
         console.log('se alerto a los jugadores.');
+    })
+
+    socket.on('iniciarJuego' , (idJuego) => {
+        io.emit('inicioJuego' , idJuego);
+    })
+
+    socket.on('disconnect', function() {
+        if(adentro) {
+            console.log(`Se deconecto ${idJugador}`);
+            Jugador.deleteJugador(idJugador , () => {});
+            io.emit('salirSala' , idJugador);
+        }
     })
 })
 

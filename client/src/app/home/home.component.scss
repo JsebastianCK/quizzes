@@ -1,13 +1,13 @@
 $small-display: 720px;
 
 .content {
-    height: 100vh;
+    height: 100%;
     background: linear-gradient(-135deg,#c850c0,#4158d0);
     display: flex;
     flex-wrap: wrap;
     align-items: center;
     justify-content: center;
-    padding: 25px;
+    flex-direction: column;
 }
 
 .container {
@@ -24,6 +24,7 @@ $small-display: 720px;
     @media screen and (max-width: $small-display) {
         padding: 10px;
         width: auto;
+        margin: 0px 10px;
     }
 }
 
@@ -57,5 +58,51 @@ $small-display: 720px;
     height: 50px;
     @media screen and (max-width: $small-display) {
         width: 95%;
+    }
+}
+
+.tiempo {
+    position: absolute;
+    top: 5px;
+    left: 5px;
+}
+
+.game-wrapper {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 90%;
+    margin: 40px 0px 10px 0px;    
+
+    .pregunta {
+        background-color: white;
+        border-radius: 10px;
+        flex-grow: 1;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+        padding: 5px;
+        max-height: 20vh;
+    }
+    .espacio {
+        flex-grow: 1;
+        padding: 10px;
+        max-height: 10px;
+    }
+    .respuestas {
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        
+        .respuesta {
+            flex-grow: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;    
+            margin: 5px 0px;
+            padding: 5px;
+            border-radius: 10px;
+        }
     }
 }

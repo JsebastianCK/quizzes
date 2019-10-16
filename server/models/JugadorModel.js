@@ -17,14 +17,22 @@ Jugador.getAllJugadores = (result) => {
 }
 
 Jugador.createJugador = function(nuevoJugador , result) {
-    console.log(nuevoJugador);
     sql.query(`
         INSERT INTO jugador SET ?
     `, nuevoJugador , (err,res) => {
         if(err)
             result(null,err);
         else {
-            console.log(res.insertId);
+            result(null,res);
+        }
+    });
+}
+
+Jugador.deleteJugador = function(idJugador , result) {
+    sql.query("DELETE FROM jugador WHERE idJugador = ?", idJugador , (err,res) => {
+        if(err)
+            result(null,err);
+        else {
             result(null,res);
         }
     });
