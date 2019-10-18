@@ -1,0 +1,23 @@
+<div class="game" style="position: relative">
+    <h1 class="titulo">JUEGOS</h1>
+    <div class="container">
+        <div class="juegos">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Jugar</th>
+                        <th>Descripcion</th>
+                        <th>Cant. Preguntas</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let juego of juegos | async">
+                        <button class="btn btn-danger" (click)='iniciarJuego(juego.idJuego)'><mat-icon svgIcon="play"></mat-icon></button>
+                        <td>{{juego.descripcion}}</td>
+                        <td>{{juego.cantPreguntas}}</td> 
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

@@ -22,6 +22,8 @@ export class HomeComponent implements OnInit {
   tiempo: number = 30;
 
   respuestas;
+  preguntaRespondida: boolean = false;
+  respuestaCorrecta: boolean = false;
 
   colores = ['#007aff' , '#28a745' , '#dc3545' , '#ffc107'];
 
@@ -56,12 +58,20 @@ export class HomeComponent implements OnInit {
     })
   }
 
+  responderPregunta(correcta) {
+    this.preguntaRespondida = true;
+    if(correcta == 1) 
+      this.respuestaCorrecta = true
+  }
+
   empezarTiempo() {
     setInterval(() => {
       if(this.tiempo > 0) {
         this.tiempo--;
       } else {
         this.idPreguntaActual++;
+        this.respuestaCorrecta = false
+        this.preguntaRespondida = false;
         this.preguntaActual = this.preguntas[this.idPreguntaActual];
         this.respuestas = this.api.getRespuestasPorPregunta(this.preguntaActual.idPregunta);
         this.tiempo = 30;

@@ -30,9 +30,22 @@
                     <p>{{preguntaActual.pregunta}}</p>
                 </div>
                 <div class="espacio"><hr></div>
-                <div class="respuestas" *ngFor="let respuesta of respuestas | async; let i = index">
-                    <div class="respuesta" [ngStyle]="{'background-color': colores[i]}">{{respuesta.respuesta}}</div>
-                </div>
+                <ng-container
+                    *ngIf="!preguntaRespondida; then antesDeResponder; else despuesDeResponder">
+                </ng-container>
+                <ng-template #antesDeResponder>
+                    <div class="respuestas" *ngFor="let respuesta of respuestas | async; let i = index">
+                        <div class="respuesta" [ngStyle]="{'background-color': colores[i]}" (click)="responderPregunta(respuesta.correcta)">{{respuesta.respuesta}}</div>
+                    </div>
+                </ng-template>
+                <ng-template #despuesDeResponder>
+                    <div *ngIf="respuestaCorrecta" class="correcto">
+                        BIEN CHE
+                    </div>
+                    <div *ngIf="!respuestaCorrecta" class="correcto">
+                        MAL CHE
+                    </div>
+                </ng-template>
             </div>
         </ng-template>
         

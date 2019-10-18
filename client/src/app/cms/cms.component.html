@@ -1,0 +1,25 @@
+<div class="wrapper dashboard-showing">
+    <div class="aside dashboard">
+        <div class="brand">
+            <a routerLink="/cms/inicio"><h2>QUIZZES</h2></a>
+        </div>
+        <div class="aside-wrapper">
+            <div class="menu">
+                <ul>
+                    <li routerLinkActive="active" routerLink="/cms/juego">
+                        <mat-icon svgIcon="gamepad"></mat-icon>&nbsp;<p>Juegos</p>
+                    </li>
+                    <li routerLinkActive="active" routerLink="/cms/info">
+                        <mat-icon svgIcon="information"></mat-icon>&nbsp;<p>Info</p>
+                    </li>
+                </ul>
+            </div>
+            <div class="online-players">
+                <span style="display: flex;align-items: center;"><mat-icon svgIcon="account"></mat-icon>&nbsp;<h3>{{jugadores.length}}</h3></span>
+                <p>Jugadores conectados</p>
+            </div>
+        </div>
+    </div>
+    <div class="contenido">
+        <router-outlet></router-outlet>
+</div>

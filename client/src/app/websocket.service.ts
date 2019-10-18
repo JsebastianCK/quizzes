@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 })
 export class WebsocketService {
 
-  private url: string = 'http://192.168.1.62:5000';
+  private url: string = 'http://10.1.99.227:5000';
   private socket: any;
 
 

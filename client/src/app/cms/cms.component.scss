@@ -1,0 +1,94 @@
+.aside {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    .aside-wrapper {
+        margin-top: 10px;
+    }
+}
+
+.dashboard {
+    width: 250px;
+    background-color: #282733;
+    color: #646c9a;
+    
+    li {
+        list-style: none;
+        outline: none;
+        &:hover {
+            cursor: pointer;
+        }
+    }
+
+    a {
+        text-decoration: none;
+        color: inherit;
+    }
+
+    .brand {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 0 25px;
+        background-color: #201f2b;
+        height: 65px;
+
+        h2 {
+            letter-spacing: 10px;
+        }
+    }
+
+}
+.contenido {
+    margin-left: 65px;
+    padding: 25px;
+}
+
+.menu {
+    li {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        padding: 10px 20px;
+
+        &:hover {
+            color: #ECEFF1;
+        }
+
+        // Seleccionado
+        &.active {
+            background-color: #db1430;
+            color: white;
+            &:after {
+                content: "";
+                position: absolute;
+                width: 0;
+                height: 0;
+                right: 0;
+                border-top: 10px solid transparent;
+                border-bottom: 10px solid transparent;
+                border-right: 10px solid #ECEFF1;
+                border-width: 22px 10px 22px 0;
+            }
+        }
+    }
+    
+}
+
+.online-players {
+    position: absolute;
+    bottom: 50px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+// Cuando el dashboard esta extendido
+.dashboard-showing{
+    .contenido {
+        margin-left: 250px;
+    }
+}
