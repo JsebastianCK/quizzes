@@ -16,9 +16,14 @@ export class HomeComponent implements OnInit {
   nombreJugador: String;
   alerta: boolean = false;
   jugadorForm;  // Form del jugador
+  puntaje: number = 0;
+  
   preguntas = [];
   preguntaActual;
   idPreguntaActual: number;
+  preguntasTotales: number;
+  termino: boolean = false;
+  
   tiempo: number = 10;
 
   respuestas;
@@ -45,56 +50,72 @@ export class HomeComponent implements OnInit {
 
       // Si el jugador ya esta dentro de la sala entonces cargo todas las preguntas
       if(this.entroASala) {
+        this.termino = false;
         this.inicio = true;
         this.api.getPreguntasPorJuego(idJuego).subscribe((data) => {
           this.preguntas = data;
+          this.preguntasTotales = this.preguntas.length;
           this.preguntaActual = this.preguntas[0];
           this.respuestas = this.api.getRespuestasPorPregunta(this.preguntaActual.idPregunta);
           this.idPreguntaActual = 0;
           this.empezarTiempo();
         })
       }
-
+      
     })
   }
-
+  // Cuando se hace click en alguna respuesta se llama a esta funcion.
+  // Entra por parametro si la respuesta elegida es correcta o no.
   responderPregunta(correcta) {
     this.preguntaRespondida = true;
     if(correcta == 1){
-      this.respuestaCorrecta = true
+      this.idPreguntaActual++;
+      this.puntaje += 10 + this.tiempo;
+      this.api.updatePuntaje({
+        nombreJugador: this.nombreJugador,
+        puntaje: this.puntaje
+      }).subscribe((res) => {
+        console.log(res)
+      });
+      
     }
     setTimeout(()=>{
-        this.idPreguntaActual++;
-        this.respuestaCorrecta = false
-        this.preguntaRespondida = false;
-        this.preguntaActual = this.preguntas[this.idPreguntaActual];
-        this.respuestas = this.api.getRespuestasPorPregunta(this.preguntaActual.idPregunta);
-        this.tiempo = 10;
+        this.siguientePregunta();
 
     },2000)
 
   }
 
+  // Empieza el tiempo
   empezarTiempo() {
     setInterval(() => {
       if(this.tiempo > 0) {
         this.tiempo--;
       } else {
         this.idPreguntaActual++;
-        this.respuestaCorrecta = false
-        this.preguntaRespondida = false;
-        this.preguntaActual = this.preguntas[this.idPreguntaActual];
-        this.respuestas = this.api.getRespuestasPorPregunta(this.preguntaActual.idPregunta);
-        this.tiempo = 10;
+        if(this.idPreguntaActual != this.preguntasTotales) {
+          this.siguientePregunta();
+        } else {
+          this.termino = true;
+        }
       }
     },1000)
   }
 
+  // La persona entra a la sala.
   entrarSala(jugador) {
-    // La persona entra a la sala.
     this.webSocket.send('entrarSala' , jugador);
     this.nombreJugador = jugador.nombre;
     this.entroASala = true;
+  }
+
+  // Pasa a la siguiente pregunta
+  siguientePregunta() {
+    this.preguntaRespondida = false;
+    this.respuestaCorrecta = false
+    this.preguntaActual = this.preguntas[this.idPreguntaActual];
+    this.respuestas = this.api.getRespuestasPorPregunta(this.preguntaActual.idPregunta);
+    this.tiempo = 30;
   }
 
 }

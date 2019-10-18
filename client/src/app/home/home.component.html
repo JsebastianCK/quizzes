@@ -24,31 +24,45 @@
         </ng-container>
 
         <ng-template #inicioJuego>
-            <span class="tiempo"><p>{{tiempo}} segundos restantes</p></span>
-            <div class="game-wrapper">
-                <div class="pregunta">
-                    <p>{{preguntaActual.pregunta}}</p>
-                </div>
-                <div class="espacio"><hr></div>
-                <ng-container
-                    *ngIf="!preguntaRespondida; then antesDeResponder; else despuesDeResponder">
-                </ng-container>
-                <ng-template #antesDeResponder>
-                    <div class="respuestas" *ngFor="let respuesta of respuestas | async; let i = index">
-                        <div class="respuesta" [ngStyle]="{'background-color': colores[i]}" (click)="responderPregunta(respuesta.correcta)">{{respuesta.respuesta}}</div>
-                    </div>
-                </ng-template>
-                <ng-template #despuesDeResponder>
-                    <div *ngIf="respuestaCorrecta" class="correcto">
-                        <img src="assets/img/correcto.png"/>
-                    </div>
-                    <div *ngIf="!respuestaCorrecta" class="correcto">
-                        MAL CHE
-                    </div>
-                </ng-template>
-            </div>
-        </ng-template>
+            <ng-container
+                *ngIf="!termino; then preguntasPendientes; else terminoJuego">
+            </ng-container>
 
+            <ng-template #preguntasPendientes>
+                <span class="tiempo"><p>{{tiempo}} segundos restantes</p></span>
+                <div class="game-wrapper">
+                    <div class="pregunta">
+                        <p>{{preguntaActual.pregunta}}</p>
+                    </div>
+                    <div class="espacio"><hr></div>
+                    <ng-container
+                        *ngIf="!preguntaRespondida; then antesDeResponder; else despuesDeResponder">
+                    </ng-container>
+                    <ng-template #antesDeResponder>
+                        <div class="respuestas" *ngFor="let respuesta of respuestas | async; let i = index">
+                            <div class="respuesta" [ngStyle]="{'background-color': colores[i]}" (click)="responderPregunta(respuesta.correcta)">{{respuesta.respuesta}}</div>
+                        </div>
+                    </ng-template>
+                    <ng-template #despuesDeResponder>
+                        <div *ngIf="respuestaCorrecta" class="correcto">
+                            <img src="assets/img/correcto.png"/>
+                        </div>
+                        <div *ngIf="!respuestaCorrecta" class="correcto">
+                            MAL CHE
+                        </div>
+                    </ng-template>
+                </div>
+            </ng-template>
+            <ng-template #terminoJuego>
+                <div class="game-wrapper">
+                    <div class="pregunta">
+                        <h1>Felicitaciones!</h1>
+                        <p>Conseguiste <b>{{puntaje}}</b> puntos</p>
+                    </div>
+                </div>
+            </ng-template>
+        </ng-template>
+        
         <ng-template #pendienteJuego>
             <div class="container">
                 <h1 class="welcome">Hola, {{nombreJugador}}</h1>

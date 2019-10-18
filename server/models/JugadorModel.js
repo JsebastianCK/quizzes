@@ -28,6 +28,17 @@ Jugador.createJugador = function(nuevoJugador , result) {
     });
 }
 
+Jugador.updatePuntaje = function(jugador , result) {
+    sql.query('UPDATE jugador SET puntaje = ? WHERE nombre = ?',
+                [jugador.puntaje , jugador.nombreJugador],
+                (err,res) => {
+                    if(err)
+                        result(null,err);
+                    else
+                        result(null,res);
+                })
+}
+
 Jugador.deleteJugador = function(idJugador , result) {
     sql.query("DELETE FROM jugador WHERE idJugador = ?", idJugador , (err,res) => {
         if(err)

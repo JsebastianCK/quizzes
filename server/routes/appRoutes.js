@@ -24,5 +24,6 @@ module.exports = function (app) {
     // Jugadores
     app.route('/jugador')
         .get(jugador.list_all_jugadores)
-        .post(jugador.create_jugador);
+        .post(jugador.create_jugador)
+        .put(jugador.update_puntaje);
 }
