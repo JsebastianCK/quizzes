@@ -19,7 +19,7 @@ export class HomeComponent implements OnInit {
   preguntas = [];
   preguntaActual;
   idPreguntaActual: number;
-  tiempo: number = 30;
+  tiempo: number = 10;
 
   respuestas;
   preguntaRespondida: boolean = false;
@@ -54,14 +54,25 @@ export class HomeComponent implements OnInit {
           this.empezarTiempo();
         })
       }
-      
+
     })
   }
 
   responderPregunta(correcta) {
     this.preguntaRespondida = true;
-    if(correcta == 1) 
+    if(correcta == 1){
       this.respuestaCorrecta = true
+    }
+    setTimeout(()=>{
+        this.idPreguntaActual++;
+        this.respuestaCorrecta = false
+        this.preguntaRespondida = false;
+        this.preguntaActual = this.preguntas[this.idPreguntaActual];
+        this.respuestas = this.api.getRespuestasPorPregunta(this.preguntaActual.idPregunta);
+        this.tiempo = 10;
+
+    },2000)
+
   }
 
   empezarTiempo() {
@@ -74,7 +85,7 @@ export class HomeComponent implements OnInit {
         this.preguntaRespondida = false;
         this.preguntaActual = this.preguntas[this.idPreguntaActual];
         this.respuestas = this.api.getRespuestasPorPregunta(this.preguntaActual.idPregunta);
-        this.tiempo = 30;
+        this.tiempo = 10;
       }
     },1000)
   }
