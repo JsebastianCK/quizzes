@@ -70,6 +70,7 @@ export class HomeComponent implements OnInit {
     this.preguntaRespondida = true;
     if(correcta == 1){
       this.idPreguntaActual++;
+      this.respuestaCorrecta = true;
       this.puntaje += 10 + this.tiempo;
       this.api.updatePuntaje({
         nombreJugador: this.nombreJugador,
@@ -79,9 +80,8 @@ export class HomeComponent implements OnInit {
       });
       
     }
-    setTimeout(()=>{
+    setInterval(()=>{
         this.siguientePregunta();
-
     },2000)
 
   }
