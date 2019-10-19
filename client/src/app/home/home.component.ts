@@ -17,15 +17,16 @@ export class HomeComponent implements OnInit {
   alerta: boolean = false;
   jugadorForm;  // Form del jugador
   puntaje: number = 0;
-
+  
   preguntas = [];
   preguntaActual;
   idPreguntaActual: number;
   preguntasTotales: number;
   intervalo;
   termino: boolean = false;
-
+  
   tiempo: number = 10;
+  tiempoTranscurrido: number = this.tiempo;
 
   respuestas;
   preguntaRespondida: boolean = false;
@@ -53,6 +54,8 @@ export class HomeComponent implements OnInit {
       if(this.entroASala) {
         this.termino = false;
         this.inicio = true;
+        this.puntaje = 0;
+        this.tiempoTranscurrido = 10;
         this.api.getPreguntasPorJuego(idJuego).subscribe((data) => {
           this.preguntas = data;
           this.preguntasTotales = this.preguntas.length;
@@ -62,8 +65,9 @@ export class HomeComponent implements OnInit {
           this.empezarTiempo();
         })
       }
+      
+    });
 
-    })
   }
   // Cuando se hace click en alguna respuesta se llama a esta funcion.
   // Entra por parametro si la respuesta elegida es correcta o no.
@@ -74,16 +78,14 @@ export class HomeComponent implements OnInit {
     if(correcta == 1){
 
       this.respuestaCorrecta = true;
-      this.puntaje += 10 + this.tiempo;
+      this.puntaje += 10 + this.tiempoTranscurrido;
       this.api.updatePuntaje({
         nombreJugador: this.nombreJugador,
         puntaje: this.puntaje
       }).subscribe((res) => {
         console.log(res)
       });
-
-
-
+      
     }
 
     setTimeout(()=>{
