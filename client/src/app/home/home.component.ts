@@ -25,6 +25,7 @@ export class HomeComponent implements OnInit {
   termino: boolean = false;
   
   tiempo: number = 10;
+  tiempoTranscurrido: number = this.tiempo;
 
   respuestas;
   preguntaRespondida: boolean = false;
@@ -52,6 +53,8 @@ export class HomeComponent implements OnInit {
       if(this.entroASala) {
         this.termino = false;
         this.inicio = true;
+        this.puntaje = 0;
+        this.tiempoTranscurrido = 10;
         this.api.getPreguntasPorJuego(idJuego).subscribe((data) => {
           this.preguntas = data;
           this.preguntasTotales = this.preguntas.length;
@@ -62,26 +65,27 @@ export class HomeComponent implements OnInit {
         })
       }
       
-    })
+    });
+
   }
   // Cuando se hace click en alguna respuesta se llama a esta funcion.
   // Entra por parametro si la respuesta elegida es correcta o no.
   responderPregunta(correcta) {
     this.preguntaRespondida = true;
     if(correcta == 1){
-      this.idPreguntaActual++;
       this.respuestaCorrecta = true;
-      this.puntaje += 10 + this.tiempo;
+      this.puntaje += 10 + this.tiempoTranscurrido;
       this.api.updatePuntaje({
         nombreJugador: this.nombreJugador,
         puntaje: this.puntaje
       }).subscribe((res) => {
         console.log(res)
       });
-      
     }
-    setInterval(()=>{
-        this.siguientePregunta();
+    this.idPreguntaActual++;
+    setTimeout(()=>{
+      console.log('Entre al timeout');
+      this.siguientePregunta();
     },2000)
 
   }
@@ -89,15 +93,11 @@ export class HomeComponent implements OnInit {
   // Empieza el tiempo
   empezarTiempo() {
     setInterval(() => {
-      if(this.tiempo > 0) {
-        this.tiempo--;
+      if(this.tiempoTranscurrido > 0) {
+        this.tiempoTranscurrido--;
       } else {
         this.idPreguntaActual++;
-        if(this.idPreguntaActual != this.preguntasTotales) {
-          this.siguientePregunta();
-        } else {
-          this.termino = true;
-        }
+        this.siguientePregunta();
       }
     },1000)
   }
@@ -111,11 +111,15 @@ export class HomeComponent implements OnInit {
 
   // Pasa a la siguiente pregunta
   siguientePregunta() {
-    this.preguntaRespondida = false;
-    this.respuestaCorrecta = false
-    this.preguntaActual = this.preguntas[this.idPreguntaActual];
-    this.respuestas = this.api.getRespuestasPorPregunta(this.preguntaActual.idPregunta);
-    this.tiempo = 30;
+    if(this.idPreguntaActual != this.preguntasTotales) {
+      this.tiempoTranscurrido = this.tiempo;
+      this.preguntaRespondida = false;
+      this.respuestaCorrecta = false
+      this.preguntaActual = this.preguntas[this.idPreguntaActual];
+      this.respuestas = this.api.getRespuestasPorPregunta(this.preguntaActual.idPregunta);
+    } else {
+      this.termino = true;
+    }
   }
 
 }
