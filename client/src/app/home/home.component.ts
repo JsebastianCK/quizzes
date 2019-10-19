@@ -17,13 +17,14 @@ export class HomeComponent implements OnInit {
   alerta: boolean = false;
   jugadorForm;  // Form del jugador
   puntaje: number = 0;
-  
+
   preguntas = [];
   preguntaActual;
   idPreguntaActual: number;
   preguntasTotales: number;
+  intervalo;
   termino: boolean = false;
-  
+
   tiempo: number = 10;
 
   respuestas;
@@ -61,15 +62,17 @@ export class HomeComponent implements OnInit {
           this.empezarTiempo();
         })
       }
-      
+
     })
   }
   // Cuando se hace click en alguna respuesta se llama a esta funcion.
   // Entra por parametro si la respuesta elegida es correcta o no.
   responderPregunta(correcta) {
     this.preguntaRespondida = true;
+    clearInterval(this.intervalo);
+
     if(correcta == 1){
-      this.idPreguntaActual++;
+
       this.respuestaCorrecta = true;
       this.puntaje += 10 + this.tiempo;
       this.api.updatePuntaje({
@@ -78,28 +81,29 @@ export class HomeComponent implements OnInit {
       }).subscribe((res) => {
         console.log(res)
       });
-      
+
+
+
     }
-    setInterval(()=>{
+
+    setTimeout(()=>{
         this.siguientePregunta();
-    },2000)
+    },2000);
+
+
 
   }
 
   // Empieza el tiempo
   empezarTiempo() {
-    setInterval(() => {
+    this.intervalo = setInterval(() => {
       if(this.tiempo > 0) {
         this.tiempo--;
       } else {
-        this.idPreguntaActual++;
-        if(this.idPreguntaActual != this.preguntasTotales) {
-          this.siguientePregunta();
-        } else {
-          this.termino = true;
-        }
+
+        this.siguientePregunta();
       }
-    },1000)
+    },1000);
   }
 
   // La persona entra a la sala.
@@ -111,11 +115,18 @@ export class HomeComponent implements OnInit {
 
   // Pasa a la siguiente pregunta
   siguientePregunta() {
-    this.preguntaRespondida = false;
-    this.respuestaCorrecta = false
-    this.preguntaActual = this.preguntas[this.idPreguntaActual];
-    this.respuestas = this.api.getRespuestasPorPregunta(this.preguntaActual.idPregunta);
-    this.tiempo = 30;
+    this.idPreguntaActual++;
+    if(this.idPreguntaActual == this.preguntasTotales) {
+      this.termino = true;
+    } else {
+      this.preguntaRespondida = false;
+      this.respuestaCorrecta = false
+      this.preguntaActual = this.preguntas[this.idPreguntaActual];
+      this.respuestas = this.api.getRespuestasPorPregunta(this.preguntaActual.idPregunta);
+      this.tiempo = 10;
+      this.empezarTiempo();
+    }
+
   }
 
 }
