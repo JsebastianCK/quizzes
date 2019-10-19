@@ -99,8 +99,8 @@ export class HomeComponent implements OnInit {
   // Empieza el tiempo
   empezarTiempo() {
     this.intervalo = setInterval(() => {
-      if(this.tiempo > 0) {
-        this.tiempo--;
+      if(this.tiempoTranscurrido > 0) {
+        this.tiempoTranscurrido--;
       } else {
 
         this.siguientePregunta();
@@ -125,7 +125,7 @@ export class HomeComponent implements OnInit {
       this.respuestaCorrecta = false
       this.preguntaActual = this.preguntas[this.idPreguntaActual];
       this.respuestas = this.api.getRespuestasPorPregunta(this.preguntaActual.idPregunta);
-      this.tiempo = 10;
+      this.tiempoTranscurrido = this.tiempo;
       this.empezarTiempo();
     }
 
