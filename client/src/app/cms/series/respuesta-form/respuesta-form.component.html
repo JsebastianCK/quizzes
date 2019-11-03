@@ -1,0 +1,9 @@
+<div class="container">
+        <form>
+            <mat-form-field style="width: 100%" *ngFor='let respuesta of respuestas; let i = index'>
+                <input matInput placeholder="Respuesta" [(ngModel)]='respuesta.respuesta' [name]='i+1'>
+            </mat-form-field>
+        </form>
+        <button (click)='probando()'>PROBAR</button>
+    </div>
+    

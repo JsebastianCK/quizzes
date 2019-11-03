@@ -14,7 +14,15 @@ export class ApiService {
 
   // Pregunta
   getPreguntas(): Observable<Object> {
-    return this.http.get(this.baseUri + '/pregunta')
+    return this.http.get(this.baseUri + '/pregunta');
+  }
+
+  getPregunta(id): Observable<any> {
+    return this.http.get(this.baseUri + '/pregunta/' + id);
+  }
+
+  updatePregunta(pregunta): Observable<Object> {
+    return this.http.put(this.baseUri + '/pregunta' , pregunta);
   }
 
   getRespuestasPorPregunta(idPregunta): Observable<Object> {
@@ -23,7 +31,7 @@ export class ApiService {
   
   // Jugador
   getJugadores(): Observable<Object> {
-    return this.http.get(this.baseUri + '/jugador')
+    return this.http.get(this.baseUri + '/jugador');
   }
 
   updatePuntaje(jugador): Observable<Object> {
@@ -31,8 +39,8 @@ export class ApiService {
   }
 
   // Juego
-  getJuegos(): Observable<Object> {
-    return this.http.get(this.baseUri + '/juego')
+  getJuegos(): Observable<any> {
+    return this.http.get(this.baseUri + '/juego');
   }
 
   getJuego(id): Observable<Object> {

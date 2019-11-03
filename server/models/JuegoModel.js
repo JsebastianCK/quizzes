@@ -8,7 +8,7 @@ Juego.getAllJuegos = (result) => {
     sql.query(`
             SELECT jg.* , sr.cantPreguntas
             FROM juego jg
-            INNER JOIN (
+            LEFT JOIN (
                 SELECT idJuego , count(*) as cantPreguntas
                 FROM serie
                 GROUP BY idJuego

@@ -29,28 +29,29 @@
             </ng-container>
 
             <ng-template #preguntasPendientes>
-                <span class="tiempo"><p>{{tiempoTranscurrido}} segundos restantes</p></span>
-                <div class="game-wrapper">
-                    <div class="pregunta">
+                <div class="container-fluid h-100">
+                    <div class="container-fluid h-50 d-flex flex-column" style="background-color: white; justify-content: center; align-items: center;position: relative;border-radius: 10px;">
+                        <span class="tiempo"><p>{{tiempoTranscurrido}} segundos restantes</p></span>
                         <p>{{preguntaActual.pregunta}}</p>
                     </div>
-                    <div class="espacio"><hr></div>
-                    <ng-container
-                        *ngIf="!preguntaRespondida; then antesDeResponder; else despuesDeResponder">
-                    </ng-container>
-                    <ng-template #antesDeResponder>
-                        <div class="respuestas" *ngFor="let respuesta of respuestas | async; let i = index">
-                            <div class="respuesta" [ngStyle]="{'background-color': colores[i]}" (click)="responderPregunta(respuesta.correcta)">{{respuesta.respuesta}}</div>
-                        </div>
-                    </ng-template>
-                    <ng-template #despuesDeResponder>
-                        <div *ngIf="respuestaCorrecta" class="correcto">
-                            <img src="../../assets/img/correcto.png"/>
-                        </div>
-                        <div *ngIf="!respuestaCorrecta" class="correcto">
-                            MAL CHE
-                        </div>
-                    </ng-template>
+                    <div class="container-fluid h-50 d-flex flex-column" style="padding-bottom: 10px;">
+                        <ng-container
+                            *ngIf="!preguntaRespondida; then antesDeResponder; else despuesDeResponder">
+                        </ng-container>
+                        <ng-template #antesDeResponder>
+                            <div class="flex-grow-1" *ngFor="let respuesta of respuestas | async; let i = index" [ngStyle]="{'background-color': colores[i], 'margin': '5px 0px', 'border-radius': '10px'}" (click)="responderPregunta(respuesta.correcta)">
+                                {{respuesta.respuesta}}
+                            </div>
+                        </ng-template>
+                        <ng-template #despuesDeResponder>
+                            <div *ngIf="respuestaCorrecta" class="correcto">
+                                <img src="../../assets/img/correcto.png"/>
+                            </div>
+                            <div *ngIf="!respuestaCorrecta" class="correcto">
+                                MAL CHE
+                            </div>
+                        </ng-template>
+                    </div>
                 </div>
             </ng-template>
             <ng-template #terminoJuego>

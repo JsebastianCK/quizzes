@@ -12,23 +12,23 @@
 }
 
 body {
-    background-color: #ECEFF1;
+    background-color: #f2f3f8!important;
     margin: 0;
     font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 html, body { height: 100%; }
 
-.btn {
-    padding: 5px 10px;
-    border-radius: 5px;
-    border: none;
+.btn-play {
+    background-color: #fd397a!important;
+    color: white!important;
+}
 
-    &:hover {
-        cursor: pointer;
-    }
+.cajita {
+    background-color: white;
+    padding: 15px;
+    box-shadow: 0 0 13px 0 rgba(82,63,105,.05);
+}
 
-    &.btn-danger {
-        background-color: #fd397a;
-        color: white;
-    }
+.titulo {
+    font-size: 1.2rem;
 }

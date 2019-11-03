@@ -6,7 +6,9 @@ module.exports = function (app) {
 
     // Preguntas
     app.route('/pregunta')
-        .get(pregunta.list_all_preguntas);
+        .get(pregunta.list_all_preguntas)
+        .put(pregunta.update_pregunta)
+        .post(pregunta.create_pregunta);
     app.route('/pregunta/:preguntaId')
         .get(pregunta.list_pregunta_by_id);
     app.route('/pregunta/:preguntaId/respuestas')

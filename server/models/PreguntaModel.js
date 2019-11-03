@@ -6,7 +6,7 @@ var Pregunta = function(pregunta){
 };
 
 Pregunta.getPreguntaById = function (preguntaId, result) {
-        sql.query("SELECT pregunta FROM pregunta WHERE idPregunta = ? ", preguntaId, function (err, res) {             
+        sql.query("SELECT * FROM pregunta WHERE idPregunta = ? ", preguntaId, function (err, res) {             
             if(err) {
                 result(err, null);
             }
@@ -15,6 +15,28 @@ Pregunta.getPreguntaById = function (preguntaId, result) {
             }
         });   
 };
+
+Pregunta.updatePregunta = function(pregunta , result) {
+    sql.query('UPDATE pregunta SET pregunta = ? WHERE idPregunta = ?',
+                [pregunta.pregunta , pregunta.idPregunta],
+                (err,res) => {
+                    if(err)
+                        result(null,err);
+                    else
+                        result(null,res);
+                })
+}
+
+Pregunta.createPregunta = function(pregunta , result) {
+    sql.query('INSERT INTO pregunta(pregunta) VALUES (?)',
+                [pregunta.pregunta],
+                (err,res) => {
+                    if(err)
+                        result(null,err);
+                    else
+                        result(null,res);
+                })
+}
 
 Pregunta.getAllPreguntas = function (result) {
         sql.query("SELECT * FROM pregunta", function (err, res) {

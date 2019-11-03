@@ -1,9 +1,13 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { CmsComponent } from './cms.component'
-import { SeriesComponent } from './series/series.component'
-import { InfoComponent } from './info/info.component'
+import { CmsComponent } from './cms.component';
+import { SeriesComponent } from './series/series.component';
+import { SeriesCreateComponent } from './series/series-create/series-create.component';
+import { SeriesUpdateComponent } from './series/series-update/series-update.component';
+
+import { InfoComponent } from './info/info.component';
+import { ConfiguracionComponent } from './configuracion/configuracion.component';
 
 const routes: Routes = [
     {
@@ -12,11 +16,19 @@ const routes: Routes = [
         children: [
             {
                 path: 'juego',
-                component: SeriesComponent
+                children: [
+                    {path: '', component: SeriesComponent},
+                    {path: 'create', component: SeriesCreateComponent},
+                    {path: ':idJuego', component: SeriesUpdateComponent},
+                ]
             },
             {
                 path: 'info',
                 component: InfoComponent
+            },
+            {
+                path: 'configuracion',
+                component: ConfiguracionComponent
             },
         ]
     }

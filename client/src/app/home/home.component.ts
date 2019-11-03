@@ -25,7 +25,7 @@ export class HomeComponent implements OnInit {
   intervalo;
   termino: boolean = false;
   
-  tiempo: number = 10;
+  tiempo: number = 500;
   tiempoTranscurrido: number = this.tiempo;
 
   respuestas;
@@ -55,7 +55,7 @@ export class HomeComponent implements OnInit {
         this.termino = false;
         this.inicio = true;
         this.puntaje = 0;
-        this.tiempoTranscurrido = 10;
+        this.tiempoTranscurrido = this.tiempo;
         this.api.getPreguntasPorJuego(idJuego).subscribe((data) => {
           this.preguntas = data;
           this.preguntasTotales = this.preguntas.length;

@@ -11,7 +11,6 @@ let io = require('socket.io')(server);
 let Jugador = require('./models/JugadorModel');
 
 const port = process.env.PORT || 5000;
-const url = '192.168.1.62';
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
