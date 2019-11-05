@@ -25,6 +25,10 @@ export class ApiService {
     return this.http.put(this.baseUri + '/pregunta' , pregunta);
   }
 
+  createPregunta(pregunta): Observable<Object> {
+    return this.http.post(this.baseUri + '/pregunta' , pregunta);
+  }
+
   getRespuestasPorPregunta(idPregunta): Observable<Object> {
     return this.http.get(`${this.baseUri}/pregunta/${idPregunta}/respuestas`);
   }
@@ -51,4 +55,9 @@ export class ApiService {
     return this.http.get(`${this.baseUri}/juego/${idJuego}/preguntas`);
   }
 
+  // Respuesta
+
+  updateRespuesta(respuesta): Observable<Object> {
+    return this.http.post(`${this.baseUri}/respuesta` , respuesta);
+  }
 }

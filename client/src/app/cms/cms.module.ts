@@ -6,7 +6,7 @@ import {MatIconRegistry,MatIconModule} from '@angular/material/icon';
 import {DomSanitizer} from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { MatTableModule, MatFormFieldModule, MatInputModule, MatRippleModule, MatButtonModule } from '@angular/material';
+import { MatTableModule, MatFormFieldModule, MatInputModule, MatRippleModule, MatButtonModule, MatTooltipModule , MatCheckboxModule} from '@angular/material';
 
 import { CmsRoutingModule } from './cms-routing.module';
 
@@ -32,6 +32,8 @@ import { ConfiguracionComponent } from './configuracion/configuracion.component'
     MatRippleModule,
     MatButtonModule,
     FormsModule,
+    MatTooltipModule,
+    MatCheckboxModule,
     ReactiveFormsModule
   ]
 })

@@ -63,7 +63,7 @@ export class SeriesUpdateComponent implements OnInit {
 
   editarPregunta(idPregunta) {
     this.mostrarForms();
-
+    this.respuestas = [];
     // No es una nueva pregunta
     this.nuevaPregunta = false;
 
@@ -92,7 +92,6 @@ export class SeriesUpdateComponent implements OnInit {
 
   // Refresca la tabla a partir del evento del hijo
   refrescar(pregunta) {
-    alert(pregunta);
     this.api.getPreguntasPorJuego(this.idJuego).subscribe((preguntas) => {
       this.dataSource = new MatTableDataSource(preguntas);
     })

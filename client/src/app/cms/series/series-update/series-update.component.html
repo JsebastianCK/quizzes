@@ -33,7 +33,7 @@
     <div class="row row-eq-height" *ngIf="mostrarCajas">
             <div class="col-md-6">
                 <div class="container-fluid cajita">
-                    <app-series-form [pregunta]='pregunta' [nueva]='nuevaPregunta' (cambio)='refrescar($event)'></app-series-form>
+                    <app-series-form [idJuego]='idJuego' [pregunta]='pregunta' [nueva]='nuevaPregunta' (cambio)='refrescar($event)'></app-series-form>
                 </div>
             </div>
             <div class="col-md-6">

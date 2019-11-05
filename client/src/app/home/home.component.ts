@@ -128,6 +128,11 @@ export class HomeComponent implements OnInit {
       this.tiempoTranscurrido = this.tiempo;
       this.empezarTiempo();
     }
+    this.webSocket.send('pasoPregunta' , {
+      nombre: this.nombreJugador,
+      preguntaActual: this.idPreguntaActual,
+      preguntasTotales: this.preguntasTotales
+    });
 
   }
 

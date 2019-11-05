@@ -10,6 +10,9 @@ import { EventEmitter } from '@angular/core';
 export class SeriesFormComponent implements OnInit {
   
   @Input()
+  idJuego: number;
+
+  @Input()
   pregunta;
 
   @Input()
@@ -18,6 +21,7 @@ export class SeriesFormComponent implements OnInit {
   @Output() cambio = new EventEmitter();
 
   cambioAlgo: boolean = true;
+  imagen: File = null;
 
   constructor(private api: ApiService) { }
 
@@ -39,12 +43,15 @@ export class SeriesFormComponent implements OnInit {
       idPregunta: this.pregunta.idPregunta,
       pregunta: this.pregunta.pregunta
     }).subscribe((res) => {
-      alert('adentro del subscribe');
     });
   }
 
   nuevaPregunta() {
-    alert('eta e nueva');
+    this.api.createPregunta({
+      pregunta: this.pregunta.pregunta,
+    }).subscribe(res => {
+      console.log(res);
+    });
   }
 
   refrescar() {
