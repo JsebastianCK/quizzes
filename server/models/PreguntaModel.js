@@ -31,10 +31,14 @@ Pregunta.createPregunta = function(pregunta , result) {
     sql.query('INSERT INTO pregunta(pregunta) VALUES (?)',
                 [pregunta.pregunta],
                 (err,res) => {
-                    if(err)
+                    if(err) {
+                        console.log(err);
                         result(null,err);
-                    else
+                    }
+                    else {
+                        console.log(res);
                         result(null,res);
+                    }
                 })
 }
 

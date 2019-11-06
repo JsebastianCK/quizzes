@@ -4,7 +4,7 @@
         <mat-label>Buscar Juego</mat-label>
         <input matInput (keyup)="aplicarFiltro($event.target.value)" placeholder="Buscar Juego">
     </mat-form-field>
-    <button mat-raised-button color="primary" style="float: right" routerLink="create"><b>+</b>&nbsp;Nuevo Juego</button>
+    <button mat-raised-button color="primary" style="float: right" (click)='abrirModal()'><b>+</b>&nbsp;Nuevo Juego</button>
     <table mat-table [dataSource]='dataSource'>
 
         <ng-container matColumnDef="jugar" class="mat-elevation-z8">
@@ -28,7 +28,7 @@
             <th mat-header-cell *matHeaderCellDef> Acciones </th>
             <td mat-cell *matCellDef="let juego">
                 <mat-icon svgIcon="grease-pencil" [routerLink]="['./' , juego.idJuego]"></mat-icon>
-                <mat-icon svgIcon="delete" (click)='eliminarSerie(juego.idJuego)'></mat-icon>
+                <mat-icon svgIcon="delete" (click)='eliminarSerie(juego)'></mat-icon>
             </td>
         </ng-container>
 

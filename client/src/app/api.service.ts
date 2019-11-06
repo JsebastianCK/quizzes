@@ -51,6 +51,18 @@ export class ApiService {
     return this.http.get(this.baseUri + '/juego/' + id);
   }
 
+  createJuego(juego): Observable<Object> {
+    return this.http.post(this.baseUri + '/juego/' , juego);
+  }
+
+  deleteJuego(idJuego): Observable<Object> {
+    return this.http.delete(this.baseUri + '/juego/' + idJuego);
+  }
+
+  insertPregunta(data): Observable<Object> {
+    return this.http.post(this.baseUri + '/serie/', data);
+  }
+
   getPreguntasPorJuego(idJuego): Observable<any> {
     return this.http.get(`${this.baseUri}/juego/${idJuego}/preguntas`);
   }

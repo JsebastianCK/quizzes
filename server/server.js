@@ -34,7 +34,12 @@ io.on('connection' , (socket) => {
             puntaje: 0
         } , () => {});
         io.emit('entrarSala' , jugador);
-    })
+    });
+
+    // El jugador avanzo a la siguiente pregunta.
+    socket.on('pasoPregunta' , function(jugador) {
+        io.emit('pasoPregunta' , jugador);
+    });
 
     // Alertar a los jugadores
     socket.on('alertar' , () => {

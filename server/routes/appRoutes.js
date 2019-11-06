@@ -14,15 +14,21 @@ module.exports = function (app) {
     app.route('/pregunta/:preguntaId/respuestas')
         .get(respuesta.list_respuestas_by_pregunta);
 
+    // Respuestas
+    app.route('/respuesta')
+        .post(respuesta.update_respuesta);
+
     // Juegos
     app.route('/juego')
         .get(juego.list_all_juegos)
         .post(juego.create_juego);
     app.route('/juego/:juegoId')
-        .get(juego.list_juego_by_id);
+        .get(juego.list_juego_by_id)
+        .delete(juego.delete_juego);
     app.route('/juego/:juegoId/preguntas')
         .get(juego.list_preguntas_by_juego);
-    
+    app.route('/serie')
+        .post(juego.insert_pregunta);
     // Jugadores
     app.route('/jugador')
         .get(jugador.list_all_jugadores)

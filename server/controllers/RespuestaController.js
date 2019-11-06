@@ -7,3 +7,11 @@ exports.list_respuestas_by_pregunta = (req, res) => {
       res.send(respuestas);
     });
 };
+
+exports.update_respuesta = (req, res) => {
+  Respuesta.updateRespuesta(req.body, (err, respuestas) => {
+    if(err)
+      res.send(err);
+    res.sendStatus(200);
+  })
+};

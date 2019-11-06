@@ -28,6 +28,6 @@ exports.create_pregunta = (req,res) => {
   Pregunta.createPregunta(req.body, (err,pregunta) => {
     if(err)
       res.send(err);
-    res.sendStatus(200);
+    res.send(pregunta);
   })
 }

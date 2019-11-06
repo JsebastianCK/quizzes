@@ -1,23 +1,12 @@
-<h3 class="titulo">Nuevo Juego</h3>
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-md-12">
-            <div class="container-fluid cajita">
+<h3 class="titulo" mat-dialog-title>Nuevo Juego</h3>
 
-            </div>
-        </div>
-    </div>
-    <br>
-    <div class="row" *ngIf="mostrarCajas">
-            <div class="col-md-6">
-                <div class="container-fluid cajita">
-                    
-                </div>
-            </div>
-            <div class="col-md-6">
-                    <div class="container-fluid cajita">
-                        
-                    </div>
-                </div>
-        </div>
-</div>
+<mat-dialog-content>
+    <form>
+        <mat-form-field style="width: 100%">
+            <input matInput placeholder="Nombre" [(ngModel)]='juego.descripcion' name='nombreJuego'>
+        </mat-form-field>
+    </form>
+</mat-dialog-content>
+<mat-dialog-actions>
+    <button mat-raised-button color="primary" [mat-dialog-close]="juego" >Guardar</button>
+</mat-dialog-actions>

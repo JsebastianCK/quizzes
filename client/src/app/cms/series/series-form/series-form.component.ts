@@ -35,23 +35,34 @@ export class SeriesFormComponent implements OnInit {
     } else {
       this.actualizarPregunta();
     }
-    this.refrescar();
   }
 
   actualizarPregunta() {
     this.api.updatePregunta({
       idPregunta: this.pregunta.idPregunta,
       pregunta: this.pregunta.pregunta
-    }).subscribe((res) => {
-    });
+    }).subscribe(
+      (res) => {},
+      () => {this.refrescar()}
+    );
   }
 
   nuevaPregunta() {
     this.api.createPregunta({
       pregunta: this.pregunta.pregunta,
-    }).subscribe(res => {
-      console.log(res);
-    });
+    }).subscribe(
+      res => {
+        let idPregunta = res.insertId;
+        let data = {
+          idPregunta: idPregunta, 
+          idJuego: this.idJuego
+        };
+        this.api.insertPregunta(data).subscribe(
+          () => {this.refrescar()},
+          () => {}
+        );
+      },
+    );
   }
 
   refrescar() {

@@ -7,8 +7,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SeriesCreateComponent implements OnInit {
 
-  // Muestra las dos cajas para agregar/editar preguntas y respuestas.
-  mostrarCajas: boolean = false;
+  juego: Object = {
+    descripcion: null
+  };
 
   constructor() { }
 

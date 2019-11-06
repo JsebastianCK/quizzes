@@ -16,4 +16,16 @@ Respuesta.getRespuestasByPregunta = (idPregunta , result) => {
             result(null,res);
     })
 }
+
+Respuesta.updateRespuesta = function(respuesta , result) {
+    sql.query('UPDATE respuesta SET correcta = ? WHERE idRespuesta = ?',
+                [respuesta.correcta ,respuesta.idRespuesta],
+                (err,res) => {
+                    if(err)
+                        result(null,err);
+                    else
+                        result(null,res);
+                })
+}
+
 module.exports = Respuesta;

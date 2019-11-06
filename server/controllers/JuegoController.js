@@ -31,3 +31,19 @@ exports.create_juego = (req,res) => {
     res.sendStatus(200);
   })
 }
+
+exports.delete_juego = (req,res) => {
+  Juego.deleteJuego(req.params.juegoId, (err,juego) => {
+    if(err)
+      res.send(err);
+    res.sendStatus(200);
+  })
+}
+
+exports.insert_pregunta = (req,res) => {
+  Juego.insertPregunta(req.body, (err,juego) => {
+    if(err)
+      res.send(err);
+    res.sendStatus(200);
+  })
+}
