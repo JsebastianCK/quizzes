@@ -21,6 +21,15 @@ export class InfoComponent implements OnInit {
       this.jugadores = jugadores;
     })
 
+    this.webSocket.listen('entrarSala').subscribe((data) => {
+      this.jugadores.push(data);
+    })
+
+    this.webSocket.listen('salirSala').subscribe((idJugador) => {
+      // Busco el jugador que se fue por ID y lo elimino de la lista.
+      this.jugadores.splice(this.jugadores.findIndex(j => j.idJugador == idJugador), 1);
+    })
+    
     // Evento que se dispara cuando un jugador pasa a la siguiente pregunta
     this.webSocket.listen('pasoPregunta').subscribe((jugador) => {
       

@@ -21,6 +21,10 @@ export class ApiService {
     return this.http.get(this.baseUri + '/pregunta/' + id);
   }
 
+  deletePregunta(idPregunta): Observable<any> {
+    return this.http.delete(`${this.baseUri}/pregunta/${idPregunta}`);
+  }
+
   updatePregunta(pregunta): Observable<Object> {
     return this.http.put(this.baseUri + '/pregunta' , pregunta);
   }
@@ -68,8 +72,19 @@ export class ApiService {
   }
 
   // Respuesta
+  insertRespuesta(respuesta): Observable<any> {
+    return this.http.post(`${this.baseUri}/respuesta` , respuesta);
+  }
+
+  deleteRespuesta(idRespuesta): Observable<Object> {
+    return this.http.delete(`${this.baseUri}/respuesta/${idRespuesta}`);
+  }
 
   updateRespuesta(respuesta): Observable<Object> {
-    return this.http.post(`${this.baseUri}/respuesta` , respuesta);
+    return this.http.put(`${this.baseUri}/respuesta` , respuesta);
+  }
+
+  updateRespuestaCorrecta(respuesta): Observable<Object> {
+    return this.http.put(`${this.baseUri}/respuesta/correcta` , respuesta);
   }
 }

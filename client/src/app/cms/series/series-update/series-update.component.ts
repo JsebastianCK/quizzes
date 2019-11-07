@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from "@angular/router";
 import { ApiService } from '../../../api.service';
 import {MatTableDataSource} from '@angular/material/table';
+import { SeriesFormComponent } from '../series-form/series-form.component';
+import { MatDialog } from '@angular/material/dialog';
 
 
 @Component({
@@ -23,7 +25,7 @@ export class SeriesUpdateComponent implements OnInit {
   dataSource;
   displayedColumns: string[] = ['pregunta' , 'acciones'];
   length = 100;
-  pageSize = 10;
+  pageSize = 4;
   pageSizeOptions: number[] = [5, 10, 25, 100];
 
   // ID de Pregunta a editar
@@ -32,7 +34,7 @@ export class SeriesUpdateComponent implements OnInit {
   nuevaPregunta: boolean = false;
   respuestas;
 
-  constructor(private route: ActivatedRoute, private api: ApiService) { }
+  constructor(private route: ActivatedRoute, private api: ApiService, public dialog: MatDialog) { }
 
   ngOnInit() {
     this.idJuego = parseInt(this.route.snapshot.paramMap.get("idJuego"));
@@ -48,17 +50,10 @@ export class SeriesUpdateComponent implements OnInit {
   }
 
   agregarPregunta() {
-    this.mostrarForms();
-
-    // Reseteo la pregunta y las respuestas
-    this.pregunta = {
-      idPregunta: null,
-      pregunta: ''
-    };
-    this.respuestas = [];
-
-    // Es una nueva pregunta
-    this.nuevaPregunta = true;
+      const dialogRef = this.dialog.open(SeriesFormComponent, {
+        width: '500px',
+        data: {pregunta: {pregunta: ''}}
+      });
   }
 
   editarPregunta(idPregunta) {
@@ -78,7 +73,9 @@ export class SeriesUpdateComponent implements OnInit {
 
   eliminarPregunta(idPregunta) {
     if(confirm('Esta seguro que desea eliminar esta pregunta?'))
-      alert('Se elimino la pregunta');
+      this.api.deletePregunta(idPregunta).subscribe(
+        () => {this.ngOnInit()}
+      )
   }
 
   aplicarFiltro(filtro) {

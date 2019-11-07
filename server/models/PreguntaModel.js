@@ -17,9 +17,10 @@ Pregunta.getPreguntaById = function (preguntaId, result) {
 };
 
 Pregunta.updatePregunta = function(pregunta , result) {
-    sql.query('UPDATE pregunta SET pregunta = ? WHERE idPregunta = ?',
-                [pregunta.pregunta , pregunta.idPregunta],
+    sql.query('UPDATE pregunta SET pregunta = ?, imagen = ? WHERE idPregunta = ?',
+                [pregunta.pregunta, pregunta.imagen,pregunta.idPregunta],
                 (err,res) => {
+                    console.log(pregunta);
                     if(err)
                         result(null,err);
                     else
@@ -36,8 +37,7 @@ Pregunta.createPregunta = function(pregunta , result) {
                         result(null,err);
                     }
                     else {
-                        console.log(res);
-                        result(null,res);
+                        result(null,res.insertId);
                     }
                 })
 }
@@ -51,6 +51,17 @@ Pregunta.getAllPreguntas = function (result) {
                 result(null, res);
             }
         });   
+};
+
+Pregunta.deletePregunta = function (idPregunta , result) {
+    sql.query("DELETE FROM pregunta WHERE idPregunta = ?", idPregunta ,function (err, res) {
+        if(err) {
+            result(null, err);
+        }
+        else{
+            result(null, res);
+        }
+    });   
 };
 
 module.exports = Pregunta;

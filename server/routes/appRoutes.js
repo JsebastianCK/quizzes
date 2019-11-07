@@ -10,13 +10,19 @@ module.exports = function (app) {
         .put(pregunta.update_pregunta)
         .post(pregunta.create_pregunta);
     app.route('/pregunta/:preguntaId')
-        .get(pregunta.list_pregunta_by_id);
+        .get(pregunta.list_pregunta_by_id)
+        .delete(pregunta.delete_pregunta);
     app.route('/pregunta/:preguntaId/respuestas')
         .get(respuesta.list_respuestas_by_pregunta);
 
     // Respuestas
+    app.route('/respuesta/:idRespuesta')
+        .delete(respuesta.delete_respuesta);
     app.route('/respuesta')
-        .post(respuesta.update_respuesta);
+        .post(respuesta.create_respuesta)
+        .put(respuesta.update_respuesta)
+    app.route('/respuesta/correcta')
+        .put(respuesta.update_correcta);
 
     // Juegos
     app.route('/juego')

@@ -31,3 +31,11 @@ exports.create_pregunta = (req,res) => {
     res.send(pregunta);
   })
 }
+
+exports.delete_pregunta = (req,res) => {
+  Pregunta.deletePregunta(req.params.preguntaId, (err,pregunta) => {
+    if(err)
+      res.send(err);
+    res.send(pregunta);
+  })
+}

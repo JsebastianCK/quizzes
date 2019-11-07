@@ -16,4 +16,8 @@ export class SeriesCreateComponent implements OnInit {
   ngOnInit() {
   }
 
+  crearJuego() {
+    
+  }
+
 }

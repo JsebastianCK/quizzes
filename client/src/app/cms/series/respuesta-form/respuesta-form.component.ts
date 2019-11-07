@@ -12,6 +12,9 @@ export class RespuestaFormComponent implements OnInit {
   @Input()
   respuestas;
 
+  @Input()
+  idPregunta;
+
   cantidadMaximaRespuestas: boolean;
 
   constructor(private api: ApiService) {
@@ -26,7 +29,8 @@ export class RespuestaFormComponent implements OnInit {
   }
 
   checkRespuesta(respuesta) {
-    this.api.updateRespuesta({
+    console.log(respuesta);
+    this.api.updateRespuestaCorrecta({
       idRespuesta: respuesta.idRespuesta,
       respuesta: respuesta.respuesta,
       correcta: (respuesta.correcta == 1) ? 0 : 1
@@ -36,10 +40,43 @@ export class RespuestaFormComponent implements OnInit {
   }
 
   agregarRespuesta() {
-    this.respuestas.push({
+    let nuevaRespuesta = {
       idRespuesta: null,
+      idPregunta: this.idPregunta,
       respuesta: '',
       correcta: 0
+    }
+    this.guardarNueva(nuevaRespuesta);
+    this.respuestas.push(nuevaRespuesta);
+  }
+
+  eliminarRespuesta(respuesta) {
+    this.api.deleteRespuesta(respuesta.idRespuesta).subscribe(
+      () => {},
+      () => {this.respuestas = this.respuestas.filter(obj => obj !== respuesta);}
+    )
+  }
+
+  guardarRespuestas() {
+    this.respuestas.forEach(element => {
+      this.actualizarRespuesta(element);
     });
+  }
+
+  guardarNueva(respuesta) {
+    this.api.insertRespuesta(respuesta).subscribe(
+      (res) => {respuesta.idRespuesta = res.insertId;console.log(res)},
+      (err) => {},
+    )
+  }
+
+  actualizarRespuesta(respuesta) {
+    console.log('actualizando respuesta');
+    console.log(respuesta);
+    this.api.updateRespuesta(respuesta).subscribe(
+      () => {},
+      () => {},
+      () => {}
+    )
   }
 }

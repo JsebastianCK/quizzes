@@ -8,6 +8,7 @@ import { SeriesUpdateComponent } from './series/series-update/series-update.comp
 
 import { InfoComponent } from './info/info.component';
 import { ConfiguracionComponent } from './configuracion/configuracion.component';
+import { SeriesFormComponent } from './series/series-form/series-form.component';
 
 const routes: Routes = [
     {
@@ -19,6 +20,7 @@ const routes: Routes = [
                 children: [
                     {path: '', component: SeriesComponent},
                     {path: 'create', component: SeriesCreateComponent},
+                    {path: 'form', component: SeriesFormComponent},
                     {path: ':idJuego', component: SeriesUpdateComponent},
                 ]
             },

@@ -52,14 +52,16 @@ export class SeriesFormComponent implements OnInit {
       pregunta: this.pregunta.pregunta,
     }).subscribe(
       res => {
-        let idPregunta = res.insertId;
+        let idPregunta = res;
         let data = {
           idPregunta: idPregunta, 
           idJuego: this.idJuego
         };
         this.api.insertPregunta(data).subscribe(
-          () => {this.refrescar()},
-          () => {}
+          () => {},
+          () => {
+            this.refrescar();
+          }
         );
       },
     );
@@ -67,5 +69,15 @@ export class SeriesFormComponent implements OnInit {
 
   refrescar() {
     this.cambio.emit(this.pregunta);
+  }
+
+  subirImagen(event) {
+    this.imagen = event.srcElement.files[0];
+    console.log(this.imagen);
+    this.pregunta.imagen = this.imagen;
+    this.api.updatePregunta(this.pregunta).subscribe(
+      () => {},
+      (err) => {console.log(err)}
+    )
   }
 }

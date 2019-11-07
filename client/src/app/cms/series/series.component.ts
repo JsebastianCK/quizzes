@@ -25,7 +25,7 @@ export class SeriesComponent implements OnInit {
 
   nuevaSerie;
 
-  constructor(private api: ApiService, private webSocket: WebsocketService,public dialog: MatDialog) { }
+  constructor(private api: ApiService, private webSocket: WebsocketService, public dialog: MatDialog) { }
 
   ngOnInit() {
     this.api.getJuegos().subscribe((juegos) => {
@@ -47,10 +47,12 @@ export class SeriesComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-      this.api.createJuego(result).subscribe(
-        (res) => {console.log(res)},
-        () => {this.ngOnInit()}
-      );
+      if(result.descripcion != null) {
+        this.api.createJuego(result).subscribe(
+          (res) => {console.log(res)},
+          () => {this.ngOnInit()}
+        );
+      }
     });
   }
 

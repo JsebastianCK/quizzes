@@ -54,15 +54,14 @@ Juego.getAllPreguntas = function (juegoId, result) {
 
 Juego.insertPregunta = function(datos , result) {
     sql.query(`
-        INSERT INTO serie (idJuego,idPregunta) VALUES (?) 
+        INSERT INTO serie (idJuego,idPregunta) VALUES (?,?) 
     `, [datos.idJuego , datos.idPregunta] , (err,res) => {
         if(err) {
             console.log(err);
             result(null,err);
         }
         else {
-            console.log(res.insertId);
-            result(null,res);
+            result(null,res.insertId);
         }
     });
 }
@@ -87,11 +86,9 @@ Juego.deleteJuego = function(idJuego , result) {
         DELETE FROM juego WHERE idJuego = ?
     `, [idJuego] , (err,res) => {
         if(err) {
-            console.log(err);
             result(null,err);
         }
         else {
-            console.log(res.insertId);
             result(null,res);
         }
     });
