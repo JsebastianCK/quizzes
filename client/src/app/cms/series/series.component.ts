@@ -5,6 +5,7 @@ import {MatTableDataSource} from '@angular/material/table';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { SeriesCreateComponent } from './series-create/series-create.component';
 import { MatPaginator } from '@angular/material';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-series',
@@ -28,7 +29,7 @@ export class SeriesComponent implements OnInit {
 
   nuevaSerie;
 
-  constructor(private api: ApiService, private webSocket: WebsocketService, public dialog: MatDialog) { }
+  constructor(private api: ApiService, private webSocket: WebsocketService, public dialog: MatDialog, private router: Router) { }
 
   ngOnInit() {
     this.api.getJuegos().subscribe((juegos) => {
@@ -52,9 +53,13 @@ export class SeriesComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((result) => {
       if(result.descripcion != null) {
+        let idRedirect;
         this.api.createJuego(result).subscribe(
-          (res) => {console.log(res)},
-          () => {this.ngOnInit()}
+          (res) => { idRedirect = res.insertId},
+          (err) => {},
+          () => {
+            this.router.navigate(['/cms/juego' , idRedirect])
+          }
         );
       }
     });

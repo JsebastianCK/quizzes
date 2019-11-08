@@ -28,7 +28,7 @@ exports.create_juego = (req,res) => {
   Juego.createJuego(req.body, (err,juego) => {
     if(err)
       res.send(err);
-    res.sendStatus(200);
+    res.send(juego);
   })
 }
 
