@@ -6,7 +6,7 @@ import {MatIconRegistry,MatIconModule} from '@angular/material/icon';
 import {DomSanitizer} from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { MatTableModule, MatFormFieldModule, MatInputModule, MatRippleModule, MatButtonModule, MatTooltipModule , MatCheckboxModule, MatDialogModule} from '@angular/material';
+import { MatTableModule, MatFormFieldModule, MatInputModule, MatRippleModule, MatButtonModule, MatTooltipModule , MatCheckboxModule, MatDialogModule, MatProgressBarModule} from '@angular/material';
 
 import { CmsRoutingModule } from './cms-routing.module';
 
@@ -36,7 +36,8 @@ import { JugadorComponent } from './info/jugador/jugador.component';
     MatTooltipModule,
     MatCheckboxModule,
     ReactiveFormsModule,
-    MatDialogModule
+    MatDialogModule,
+    MatProgressBarModule
   ],
 })
 export class CmsModule {

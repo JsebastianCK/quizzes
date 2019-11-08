@@ -1,4 +1,5 @@
 <h3 class="titulo">{{juego.descripcion}}</h3>
+<button mat-raised-button color="primary" routerLink='../'><b><</b>&nbsp;Volver</button>
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-12">
@@ -31,16 +32,16 @@
     </div>
     <br>
     <div class="row row-eq-height" *ngIf="mostrarCajas">
-            <div class="col-md-6">
-                <div class="container-fluid cajita">
-                    <app-series-form [idJuego]='idJuego' [pregunta]='pregunta' [nueva]='nuevaPregunta' (cambio)='refrescar($event)'></app-series-form>
-                </div>
+        <div class="col-md-6">
+            <div class="container-fluid cajita">
+                <app-series-form [idJuego]='idJuego' [pregunta]='pregunta' [nueva]='nuevaPregunta' (cambio)='refrescar($event)'></app-series-form>
             </div>
-            <div class="col-md-6">
-                    <div class="container-fluid cajita">
-                        <h5>Respuestas</h5>
-                        <app-respuesta-form [respuestas]='respuestas' [idPregunta]='pregunta.idPregunta'></app-respuesta-form>
-                    </div>
-                </div>
         </div>
+        <div class="col-md-6"*ngIf='!nuevaPregunta'>
+            <div class="container-fluid cajita">
+                <h5>Respuestas</h5>
+                <app-respuesta-form [respuestas]='respuestas' [idPregunta]='pregunta.idPregunta'></app-respuesta-form>
+            </div>
+        </div>
+    </div>
 </div>

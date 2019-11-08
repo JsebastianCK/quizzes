@@ -47,13 +47,17 @@ export class SeriesUpdateComponent implements OnInit {
       this.dataSource = new MatTableDataSource(preguntas);
     })
 
+    this.pregunta = {
+      pregunta: ''
+    }
   }
 
   agregarPregunta() {
-      const dialogRef = this.dialog.open(SeriesFormComponent, {
-        width: '500px',
-        data: {pregunta: {pregunta: ''}}
-      });
+    this.pregunta = {
+      pregunta: ''
+    };
+    this.nuevaPregunta = true;
+    this.mostrarForms();
   }
 
   editarPregunta(idPregunta) {

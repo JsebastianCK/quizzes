@@ -33,8 +33,8 @@ export class SeriesComponent implements OnInit {
     })
   }
 
-  iniciarJuego(idJuego) {
-    this.webSocket.send('iniciarJuego' , idJuego);
+  iniciarJuego(juego) {
+    this.webSocket.send('iniciarJuego' , juego);
   }
 
   aplicarFiltro(filtro) {

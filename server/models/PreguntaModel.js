@@ -37,7 +37,7 @@ Pregunta.createPregunta = function(pregunta , result) {
                         result(null,err);
                     }
                     else {
-                        result(null,res.insertId);
+                        result(null,res);
                     }
                 })
 }

@@ -3,6 +3,7 @@ module.exports = function (app) {
     var jugador = require('../controllers/JugadorController');
     var juego = require('../controllers/JuegoController');
     var respuesta = require('../controllers/RespuestaController');
+    var configuracion = require('../controllers/ConfiguracionController');
 
     // Preguntas
     app.route('/pregunta')
@@ -35,9 +36,14 @@ module.exports = function (app) {
         .get(juego.list_preguntas_by_juego);
     app.route('/serie')
         .post(juego.insert_pregunta);
+
     // Jugadores
     app.route('/jugador')
         .get(jugador.list_all_jugadores)
         .post(jugador.create_jugador)
         .put(jugador.update_puntaje);
+
+    // Configuracion
+    app.route('/configuracion')
+        .get(configuracion.get_configuracion);
 }

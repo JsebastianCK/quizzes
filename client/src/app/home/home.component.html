@@ -1,4 +1,4 @@
-<div class="content">
+<div class="content" *ngIf='!expulsado'>
     <div *ngIf="alerta">
         <span>EL JUEGO COMENZARA PRONTO</span>
     </div>
@@ -45,6 +45,9 @@
                         </ng-template>
                         <ng-template #despuesDeResponder>
                             <div *ngIf="respuestaCorrecta" class="correcto">
+                                <div class="container-fluid h-100">
+                                    
+                                </div>
                                 <img src="../../assets/img/correcto.png"/>
                             </div>
                             <div *ngIf="!respuestaCorrecta" class="correcto">
@@ -72,4 +75,7 @@
         </ng-template>
     </ng-template>
 
+</div>
+<div class="container" *ngIf='expulsado'>
+    FUISTE EXPULSADO DE LA SALA
 </div>
