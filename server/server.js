@@ -38,6 +38,7 @@ io.on('connection' , (socket) => {
 
     // El jugador avanzo a la siguiente pregunta.
     socket.on('pasoPregunta' , function(jugador) {
+        jugador.idJugador = idJugador;
         io.emit('pasoPregunta' , jugador);
     });
 
@@ -50,6 +51,14 @@ io.on('connection' , (socket) => {
     socket.on('iniciarJuego' , (idJuego) => {
         io.emit('inicioJuego' , idJuego);
     })
+
+    socket.on('expulsarJugador' , function(jugador) {
+        console.log(`Expulsando a ${jugador.nombre}: ${jugador.idJugador}`);
+        io.to(jugador.idJugador).emit('expulsado');
+        Jugador.deleteJugador(jugador.idJugador , () => {});
+        io.emit('salirSala' , idJugador);
+        socket.disconnect();
+    });
 
     socket.on('disconnect', function() {
         if(adentro) {

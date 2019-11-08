@@ -1,1 +1,4 @@
-<p>{{jugador.nombre}}</p>
+<div class="container-fluid" style='padding: 15px!important;'>
+    <mat-icon svgIcon="delete" (click)='expulsarJugador()'></mat-icon>&nbsp;<b>{{jugador.nombre}}</b><small class='float-right'>{{jugador.puntaje}} pts</small>{{preguntasTotales}}
+    <mat-progress-bar [mode]='modo' [value]="progreso"></mat-progress-bar>
+</div>

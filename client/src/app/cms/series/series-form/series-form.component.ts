@@ -26,7 +26,6 @@ export class SeriesFormComponent implements OnInit {
   constructor(private api: ApiService) { }
 
   ngOnInit() {
-    
   }
 
   guardarPregunta() {
@@ -48,22 +47,12 @@ export class SeriesFormComponent implements OnInit {
   }
 
   nuevaPregunta() {
-    this.api.createPregunta({
+    this.api.insertPregunta({
       pregunta: this.pregunta.pregunta,
+      idJuego: this.idJuego
     }).subscribe(
-      res => {
-        let idPregunta = res;
-        let data = {
-          idPregunta: idPregunta, 
-          idJuego: this.idJuego
-        };
-        this.api.insertPregunta(data).subscribe(
-          () => {},
-          () => {
-            this.refrescar();
-          }
-        );
-      },
+      res => {},
+      err => {this.refrescar()}
     );
   }
 

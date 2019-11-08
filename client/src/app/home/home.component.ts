@@ -32,6 +32,9 @@ export class HomeComponent implements OnInit {
   preguntaRespondida: boolean = false;
   respuestaCorrecta: boolean = false;
 
+  // Check si el jugador fue expulsado o no de la sala.
+  expulsado: boolean = false;
+
   colores = ['#007aff' , '#28a745' , '#dc3545' , '#ffc107'];
 
   constructor(
@@ -48,7 +51,10 @@ export class HomeComponent implements OnInit {
     this.webSocket.listen('alerta').subscribe((data) => {
       this.alerta = true;
     })
-    this.webSocket.listen('inicioJuego').subscribe((idJuego) => {
+    this.webSocket.listen('expulsado').subscribe(() => {
+      this.expulsado = true;
+    })
+    this.webSocket.listen('inicioJuego').subscribe((juego) => {
 
       // Si el jugador ya esta dentro de la sala entonces cargo todas las preguntas
       if(this.entroASala) {
@@ -56,7 +62,7 @@ export class HomeComponent implements OnInit {
         this.inicio = true;
         this.puntaje = 0;
         this.tiempoTranscurrido = this.tiempo;
-        this.api.getPreguntasPorJuego(idJuego).subscribe((data) => {
+        this.api.getPreguntasPorJuego(juego.idJuego).subscribe((data) => {
           this.preguntas = data;
           this.preguntasTotales = this.preguntas.length;
           this.preguntaActual = this.preguntas[0];
@@ -110,6 +116,7 @@ export class HomeComponent implements OnInit {
 
   // La persona entra a la sala.
   entrarSala(jugador) {
+    jugador.puntaje = 0;
     this.webSocket.send('entrarSala' , jugador);
     this.nombreJugador = jugador.nombre;
     this.entroASala = true;
@@ -131,7 +138,7 @@ export class HomeComponent implements OnInit {
     this.webSocket.send('pasoPregunta' , {
       nombre: this.nombreJugador,
       preguntaActual: this.idPreguntaActual,
-      preguntasTotales: this.preguntasTotales
+      puntaje: this.puntaje
     });
 
   }

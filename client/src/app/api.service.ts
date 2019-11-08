@@ -87,4 +87,9 @@ export class ApiService {
   updateRespuestaCorrecta(respuesta): Observable<Object> {
     return this.http.put(`${this.baseUri}/respuesta/correcta` , respuesta);
   }
+
+  // Configuracion
+  getConfiguracion() {
+    return this.http.get(`${this.baseUri}/configuracion`);
+  }
 }

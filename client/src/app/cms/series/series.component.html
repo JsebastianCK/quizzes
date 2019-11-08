@@ -10,7 +10,7 @@
         <ng-container matColumnDef="jugar" class="mat-elevation-z8">
             <th mat-header-cell *matHeaderCellDef>Jugar </th>
             <td mat-cell *matCellDef="let juego">
-                <button class="btn btn-play" (click)='iniciarJuego(juego.idJuego)'><mat-icon svgIcon="play"></mat-icon></button>
+                <button class="btn btn-play" (click)='iniciarJuego(juego)'><mat-icon svgIcon="play"></mat-icon></button>
             </td>
         </ng-container>
 
@@ -35,4 +35,5 @@
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
+    <mat-paginator [pageSize]='5'></mat-paginator>
 </div>

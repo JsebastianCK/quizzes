@@ -10,7 +10,7 @@ Juego.getAllJuegos = (result) => {
             FROM juego jg
             LEFT JOIN (
                 SELECT idJuego , count(*) as cantPreguntas
-                FROM serie
+                FROM pregunta
                 GROUP BY idJuego
             ) sr
             ON sr.idJuego = jg.idJuego
@@ -36,11 +36,9 @@ Juego.getJuegoById = function (juegoId, result) {
 
 Juego.getAllPreguntas = function (juegoId, result) {
         sql.query(`
-            SELECT pr.*
-            FROM serie sr
-            INNER JOIN pregunta pr
-                ON pr.idPregunta = sr.idPregunta
-            WHERE sr.idJuego = ?
+            SELECT *
+            FROM pregunta
+            WHERE idJuego = ?
             ORDER BY idPregunta
             `, juegoId, function (err, res) {
             if(err) {
@@ -54,14 +52,14 @@ Juego.getAllPreguntas = function (juegoId, result) {
 
 Juego.insertPregunta = function(datos , result) {
     sql.query(`
-        INSERT INTO serie (idJuego,idPregunta) VALUES (?,?) 
-    `, [datos.idJuego , datos.idPregunta] , (err,res) => {
+        INSERT INTO pregunta (idJuego,pregunta) VALUES (?,?) 
+    `, [datos.idJuego , datos.pregunta] , (err,res) => {
         if(err) {
             console.log(err);
             result(null,err);
         }
         else {
-            result(null,res.insertId);
+            result(null,res);
         }
     });
 }

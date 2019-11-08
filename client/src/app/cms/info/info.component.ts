@@ -29,11 +29,6 @@ export class InfoComponent implements OnInit {
       // Busco el jugador que se fue por ID y lo elimino de la lista.
       this.jugadores.splice(this.jugadores.findIndex(j => j.idJugador == idJugador), 1);
     })
-    
-    // Evento que se dispara cuando un jugador pasa a la siguiente pregunta
-    this.webSocket.listen('pasoPregunta').subscribe((jugador) => {
-      
-    })
 
     // Evento que se dispara cuando un juego fue inicializado
     this.webSocket.listen('inicioJuego').subscribe((idJuego) => {
