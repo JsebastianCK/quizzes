@@ -1,0 +1,25 @@
+<div class="container">
+    <form>
+        <div class="row" *ngFor='let respuesta of respuestas; let i = index' style='padding: 5px;margin-bottom: 5px;'>
+            <div class="col-md-1" style="display: flex; align-items: center;flex-direction: column">
+                <mat-icon svgIcon="delete" (click)='eliminarRespuesta(respuesta)'></mat-icon>
+            </div>
+            <div class="col-md-10">
+                <mat-form-field style="width: 100%;">
+                    <input matInput placeholder="Respuesta" [(ngModel)]='respuesta.respuesta' [name]='i+1'>
+                </mat-form-field>
+            </div>
+            <div class="col-md-1" style="display: flex; align-items: center;flex-direction: column">
+                <label for="i+1">Correcta</label>
+                <br>
+                <mat-checkbox [checked]='esCorrecta(respuesta)' (click)='checkRespuesta(respuesta)' [name]='i+1'></mat-checkbox>
+            </div>
+        </div>
+    </form>
+    <div class='btn-group'>
+        <button mat-raised-button color="primary" (click)='guardarRespuestas()'>Guardar</button>
+        <button mat-raised-button color="accent" [disabled]='(respuestas.length == 4)' [matTooltipPosition]="right" matTooltip="{{(respuestas.length == 4) ? 'Se alcanzo la cantidad maxima de respuestas' : ''}}" (click)='agregarRespuesta()'>Agregar Respuesta</button>
+    </div>
+</div>
+
+<!-- title="{{(cantidadMaximaRespuestas) ? 'Se alcanzo la cantidad maxima de respuestas' : ''}}" -->

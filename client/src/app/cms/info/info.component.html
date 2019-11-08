@@ -1,1 +1,6 @@
-<p>info works!</p>
+<h3 class="titulo">Jugadores</h3>
+<div class="container-fluid cajita">
+    <div *ngFor='let jugador of jugadores'>
+        <app-jugador [jugador]='jugador'></app-jugador>
+    </div>
+</div>

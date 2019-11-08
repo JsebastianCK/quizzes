@@ -1,0 +1,14 @@
+<mat-dialog-content>
+    <form>
+        <mat-form-field style="width: 100%">
+            <input matInput placeholder="Pregunta" [(ngModel)]='pregunta.pregunta' name='pregunta'>
+        </mat-form-field>
+        <div *ngIf='!nueva'>
+            <label for="singleFile">Subir imagen</label>
+            <input type="file" [(ngModel)]='imagen' (change)="subirImagen($event)" accept=".PNG, .JPEG, .JPG" />
+        </div>
+    </form>
+</mat-dialog-content>
+<mat-dialog-actions>
+    <button mat-raised-button color="primary" [ngClass]='{actualizar: !nueva}' (click)='nuevaPregunta()'>Guardar</button>
+</mat-dialog-actions>

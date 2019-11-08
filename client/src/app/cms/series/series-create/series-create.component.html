@@ -1,0 +1,12 @@
+<h3 class="titulo" mat-dialog-title>Nuevo Juego</h3>
+
+<mat-dialog-content>
+    <form>
+        <mat-form-field style="width: 100%">
+            <input matInput placeholder="Nombre" [(ngModel)]='juego.descripcion' name='nombreJuego'>
+        </mat-form-field>
+    </form>
+</mat-dialog-content>
+<mat-dialog-actions>
+    <button mat-raised-button color="primary" [mat-dialog-close]="juego" >Guardar</button>
+</mat-dialog-actions>

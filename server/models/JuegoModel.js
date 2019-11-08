@@ -8,7 +8,7 @@ Juego.getAllJuegos = (result) => {
     sql.query(`
             SELECT jg.* , sr.cantPreguntas
             FROM juego jg
-            INNER JOIN (
+            LEFT JOIN (
                 SELECT idJuego , count(*) as cantPreguntas
                 FROM serie
                 GROUP BY idJuego
@@ -52,14 +52,43 @@ Juego.getAllPreguntas = function (juegoId, result) {
         });   
 };
 
+Juego.insertPregunta = function(datos , result) {
+    sql.query(`
+        INSERT INTO serie (idJuego,idPregunta) VALUES (?,?) 
+    `, [datos.idJuego , datos.idPregunta] , (err,res) => {
+        if(err) {
+            console.log(err);
+            result(null,err);
+        }
+        else {
+            result(null,res.insertId);
+        }
+    });
+}
+
 Juego.createJuego = function(nuevoJuego , result) {
     sql.query(`
-        INSERT INTO juego SET ?
-    `, nuevoJuego , (err,res) => {
-        if(err)
+        INSERT INTO juego (descripcion) VALUES (?)
+    `, [nuevoJuego.descripcion] , (err,res) => {
+        if(err) {
+            console.log(err);
             result(null,err);
+        }
         else {
             console.log(res.insertId);
+            result(null,res);
+        }
+    });
+}
+
+Juego.deleteJuego = function(idJuego , result) {
+    sql.query(`
+        DELETE FROM juego WHERE idJuego = ?
+    `, [idJuego] , (err,res) => {
+        if(err) {
+            result(null,err);
+        }
+        else {
             result(null,res);
         }
     });
