@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from "@angular/router";
 import { ApiService } from '../../../api.service';
 import {MatTableDataSource} from '@angular/material/table';
 import { SeriesFormComponent } from '../series-form/series-form.component';
 import { MatDialog } from '@angular/material/dialog';
+import { MatPaginator } from '@angular/material';
 
 
 @Component({
@@ -13,6 +14,8 @@ import { MatDialog } from '@angular/material/dialog';
 })
 export class SeriesUpdateComponent implements OnInit {
 
+  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+  
   // Muestra las dos cajas para agregar/editar preguntas y respuestas.
   mostrarCajas: boolean = false;
 
@@ -24,9 +27,6 @@ export class SeriesUpdateComponent implements OnInit {
   // Datos de la tabla
   dataSource;
   displayedColumns: string[] = ['pregunta' , 'acciones'];
-  length = 100;
-  pageSize = 4;
-  pageSizeOptions: number[] = [5, 10, 25, 100];
 
   // ID de Pregunta a editar
   pregunta;
@@ -45,6 +45,7 @@ export class SeriesUpdateComponent implements OnInit {
     
     this.api.getPreguntasPorJuego(this.idJuego).subscribe((preguntas) => {
       this.dataSource = new MatTableDataSource(preguntas);
+      this.dataSource.paginator = this.paginator;
     })
 
     this.pregunta = {

@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ApiService } from '../../api.service';
 import { WebsocketService } from '../../websocket.service';
 import {MatTableDataSource} from '@angular/material/table';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { SeriesCreateComponent } from './series-create/series-create.component';
+import { MatPaginator } from '@angular/material';
 
 @Component({
   selector: 'app-series',
@@ -11,6 +12,8 @@ import { SeriesCreateComponent } from './series-create/series-create.component';
   styleUrls: ['./series.component.scss']
 })
 export class SeriesComponent implements OnInit {
+
+  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
   // Opciones de MatTable
   displayedColumns: string[] = ['jugar' , 'descripcion' , 'cantPreguntas', 'acciones'];
@@ -30,6 +33,7 @@ export class SeriesComponent implements OnInit {
   ngOnInit() {
     this.api.getJuegos().subscribe((juegos) => {
       this.dataSource = new MatTableDataSource(juegos);
+      this.dataSource.paginator = this.paginator;
     })
   }
 
