@@ -31,9 +31,12 @@ io.on('connection' , (socket) => {
         Jugador.createJugador({
             idJugador:idJugador,
             nombre: jugador.nombre,
-            puntaje: 0
+            puntaje: 0,
+            preguntaActual: 0,
+            jugando: 0
         } , () => {});
         io.emit('entrarSala' , jugador);
+        io.to(jugador.idJugador).emit('devolverID' , idJugador);
     });
 
     // El jugador avanzo a la siguiente pregunta.

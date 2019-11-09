@@ -12,7 +12,7 @@ exports.list_juego_by_id = (req, res) => {
     Juego.getJuegoById(req.params.juegoId, (err, juego) => {
       if (err)
         res.send(err);
-      res.send(juego[0]);
+      res.send(juego);
     });
 };
 

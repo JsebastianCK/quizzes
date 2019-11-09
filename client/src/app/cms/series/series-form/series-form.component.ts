@@ -73,14 +73,4 @@ export class SeriesFormComponent implements OnInit {
       this.pregunta.url = reader.result;
     };
   }
-
-  subirImagen(event) {
-    // this.imagen = event.srcElement.files[0];
-    // console.log(this.imagen);
-    // this.pregunta.imagen = this.imagen;
-    // this.api.updatePregunta(this.pregunta).subscribe(
-    //   () => {},
-    //   (err) => {console.log(err)}
-    // )
-  }
 }

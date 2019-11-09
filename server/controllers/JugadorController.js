@@ -8,8 +8,16 @@ exports.list_all_jugadores = (req, res) => {
     });
 };
 
-exports.update_puntaje = (req,res) => {
-  Jugador.updatePuntaje(req.body, (err,jugador) => {
+exports.get_jugador = (req, res) => {
+    Jugador.getJugador(req.params.idJugador ,(err, jugador) => {
+    if (err)
+        res.send(err);
+    res.send(jugador);
+    });
+};
+
+exports.update_jugador = (req,res) => {
+  Jugador.updateJugador(req.body, (err,jugador) => {
     if(err)
       res.send(err);
     res.sendStatus(200);

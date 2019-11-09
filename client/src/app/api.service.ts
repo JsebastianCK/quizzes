@@ -48,7 +48,11 @@ export class ApiService {
     return this.http.get(this.baseUri + '/jugador');
   }
 
-  updatePuntaje(jugador): Observable<Object> {
+  getJugador(idJugador): Observable<any> {
+    return this.http.get(this.baseUri + '/jugador/' + idJugador);
+  }
+
+  updateJugador(jugador): Observable<Object> {
     return this.http.put(this.baseUri + '/jugador' , jugador);
   }
 

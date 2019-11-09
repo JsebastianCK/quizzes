@@ -15,6 +15,7 @@ export class HomeComponent implements OnInit {
   entroASala: boolean = false;  // Flag para saber si entro o no a la sala
   inicio: boolean = false;
   nombreJugador: String;
+  idJugador;
   alerta: boolean = false;
   jugadorForm;  // Form del jugador
   puntaje: number = 0;
@@ -32,6 +33,8 @@ export class HomeComponent implements OnInit {
   respuestas;
   preguntaRespondida: boolean = false;
   respuestaCorrecta: boolean = false;
+
+  juego;
 
   // Check si el jugador fue expulsado o no de la sala.
   expulsado: boolean = false;
@@ -59,7 +62,9 @@ export class HomeComponent implements OnInit {
     this.webSocket.listen('expulsado').subscribe(() => {
       this.expulsado = true;
     })
-
+    this.webSocket.listen('devolverID').subscribe((idJugador) => {
+      this.idJugador = idJugador;
+    })
     this.api.getConfiguracion().subscribe(
       (res) => {
         this.configuracion = res[0];
@@ -68,9 +73,14 @@ export class HomeComponent implements OnInit {
     )
 
     this.webSocket.listen('inicioJuego').subscribe((juego) => {
-
+      this.juego = juego;
       // Si el jugador ya esta dentro de la sala entonces cargo todas las preguntas
       if(this.entroASala) {
+        console.log(this.idJugador);
+        this.api.updateJugador({idJugador: this.idJugador, jugando: juego.idJuego, preguntaActual: 1, puntaje: 0, nombre: this.nombreJugador}).subscribe(
+          (res) => {console.log(res)},
+          (err) => {console.log(err)}
+        );
         this.termino = false;
         this.inicio = true;
         this.puntaje = 0;
@@ -104,17 +114,16 @@ export class HomeComponent implements OnInit {
     clearInterval(this.intervalo);
 
     if(correcta == 1){
-
       this.respuestaCorrecta = true;
-      this.puntaje += 10 + this.tiempoTranscurrido;
-      this.api.updatePuntaje({
-        nombreJugador: this.nombreJugador,
-        puntaje: this.puntaje
-      }).subscribe((res) => {
-        console.log(res)
-      });
-      
+      this.puntaje += 10 + this.tiempoTranscurrido;  
     }
+    this.api.updateJugador({
+      idJugador: this.idJugador,
+      puntaje: this.puntaje,
+      preguntaActual: this.preguntaActual+1
+    }).subscribe((res) => {
+      console.log(res)
+    });
 
     setTimeout(()=>{
         this.siguientePregunta();
@@ -142,14 +151,31 @@ export class HomeComponent implements OnInit {
     this.webSocket.send('entrarSala' , jugador);
     this.nombreJugador = jugador.nombre;
     this.entroASala = true;
+    let data = {
+      idJugador: this.idJugador,
+      nombre: this.nombreJugador,
+      jugando: 0,
+      puntaje: 0,
+      preguntaActual: 0
+    }
+    this.api.updateJugador(data).subscribe();
   }
 
   // Pasa a la siguiente pregunta
   siguientePregunta() {
     this.idPreguntaActual++;
+    let data = {
+      idJugador: this.idJugador,
+      nombre: this.nombreJugador,
+      jugando: this.juego.idJuego,
+      preguntaActual: 0,
+      puntaje: this.puntaje
+    };
     if(this.idPreguntaActual == this.preguntasTotales) {
       this.termino = true;
+      data.jugando = -1;
     } else {
+      data.preguntaActual = this.idPreguntaActual+1;
       this.preguntaRespondida = false;
       this.respuestaCorrecta = false
       this.preguntaActual = this.preguntas[this.idPreguntaActual];
@@ -159,9 +185,10 @@ export class HomeComponent implements OnInit {
     }
     this.webSocket.send('pasoPregunta' , {
       nombre: this.nombreJugador,
-      preguntaActual: this.idPreguntaActual,
+      preguntaActual: this.idPreguntaActual+1,
       puntaje: this.puntaje
     });
+    this.api.updateJugador(data).subscribe();
 
   }
 

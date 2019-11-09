@@ -43,7 +43,9 @@ module.exports = function (app) {
     app.route('/jugador')
         .get(jugador.list_all_jugadores)
         .post(jugador.create_jugador)
-        .put(jugador.update_puntaje);
+        .put(jugador.update_jugador);
+    app.route('/jugador/:idJugador')
+        .get(jugador.get_jugador);
 
     // Configuracion
     app.route('/configuracion')
