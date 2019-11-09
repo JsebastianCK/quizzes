@@ -1,6 +1,8 @@
 import { Component, OnInit, Input, Output } from '@angular/core';
 import { ApiService } from 'src/app/api.service';
 import { EventEmitter } from '@angular/core';
+import { MatSnackBar } from '@angular/material';
+import { FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-series-form',
@@ -21,9 +23,11 @@ export class SeriesFormComponent implements OnInit {
   @Output() cambio = new EventEmitter();
 
   cambioAlgo: boolean = true;
-  imagen: File = null;
+  imagen: String; // Guarde la imagen en base64
+  url;
 
-  constructor(private api: ApiService) { }
+  constructor(private api: ApiService, private snackBar: MatSnackBar) {
+  }
 
   ngOnInit() {
   }
@@ -37,12 +41,13 @@ export class SeriesFormComponent implements OnInit {
   }
 
   actualizarPregunta() {
-    this.api.updatePregunta({
-      idPregunta: this.pregunta.idPregunta,
-      pregunta: this.pregunta.pregunta
-    }).subscribe(
+    this.pregunta.imagen = this.pregunta.url.substring(23);
+    this.api.updatePregunta(this.pregunta).subscribe(
       (res) => {},
-      () => {this.refrescar()}
+      () => {
+        this.refrescar();
+        this.snackBar.open('Se guardo correctamente' , 'Pregunta' , {duration: 2500})
+      }
     );
   }
 
@@ -60,13 +65,22 @@ export class SeriesFormComponent implements OnInit {
     this.cambio.emit(this.pregunta);
   }
 
+  onUpload(event) {
+    this.pregunta.imagen = event.target.files[0];
+    var reader = new FileReader();
+    reader.readAsDataURL(this.pregunta.imagen);
+    reader.onload = () => {
+      this.pregunta.url = reader.result;
+    };
+  }
+
   subirImagen(event) {
-    this.imagen = event.srcElement.files[0];
-    console.log(this.imagen);
-    this.pregunta.imagen = this.imagen;
-    this.api.updatePregunta(this.pregunta).subscribe(
-      () => {},
-      (err) => {console.log(err)}
-    )
+    // this.imagen = event.srcElement.files[0];
+    // console.log(this.imagen);
+    // this.pregunta.imagen = this.imagen;
+    // this.api.updatePregunta(this.pregunta).subscribe(
+    //   () => {},
+    //   (err) => {console.log(err)}
+    // )
   }
 }

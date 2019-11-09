@@ -7,3 +7,11 @@ exports.get_configuracion = (req, res) => {
     res.send(configuracion);
     });
 };
+
+exports.update_configuracion = (req, res) => {
+    Configuracion.updateConfiguracion(req.body, (err, configuracion) => {
+    if (err)
+        res.send(err);
+    res.send(configuracion);
+    });
+};

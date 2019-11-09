@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { WebsocketService } from '../websocket.service';
 import { ApiService } from '../api.service';
+import { DomSanitizer } from '@angular/platform-browser';
 
 
 @Component({
@@ -25,7 +26,7 @@ export class HomeComponent implements OnInit {
   intervalo;
   termino: boolean = false;
   
-  tiempo: number = 500;
+  tiempo: number;
   tiempoTranscurrido: number = this.tiempo;
 
   respuestas;
@@ -35,16 +36,20 @@ export class HomeComponent implements OnInit {
   // Check si el jugador fue expulsado o no de la sala.
   expulsado: boolean = false;
 
+  configuracion: any;
+
   colores = ['#007aff' , '#28a745' , '#dc3545' , '#ffc107'];
 
   constructor(
     private webSocket: WebsocketService,
     private api: ApiService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private domSanitizer: DomSanitizer
   ) {
     this.jugadorForm = this.formBuilder.group({
       nombre: ''
     });
+    
   }
 
   ngOnInit() {
@@ -54,6 +59,14 @@ export class HomeComponent implements OnInit {
     this.webSocket.listen('expulsado').subscribe(() => {
       this.expulsado = true;
     })
+
+    this.api.getConfiguracion().subscribe(
+      (res) => {
+        this.configuracion = res[0];
+        this.tiempo = this.configuracion.tiempoPregunta
+      }
+    )
+
     this.webSocket.listen('inicioJuego').subscribe((juego) => {
 
       // Si el jugador ya esta dentro de la sala entonces cargo todas las preguntas
@@ -64,6 +77,15 @@ export class HomeComponent implements OnInit {
         this.tiempoTranscurrido = this.tiempo;
         this.api.getPreguntasPorJuego(juego.idJuego).subscribe((data) => {
           this.preguntas = data;
+          this.preguntas.forEach(pregunta => {
+            if(pregunta.imagen != null) {
+              let TYPED_ARRAY = new Uint8Array(pregunta.imagen.data);
+              const STRING_CHAR = TYPED_ARRAY.reduce((data, byte)=> {return data + String.fromCharCode(byte);}, '');
+              let base64String = btoa(STRING_CHAR);
+              let url = this.domSanitizer.bypassSecurityTrustUrl('data:image/jpg;base64, ' + base64String);
+              pregunta.url = url;
+            }
+          })
           this.preguntasTotales = this.preguntas.length;
           this.preguntaActual = this.preguntas[0];
           this.respuestas = this.api.getRespuestasPorPregunta(this.preguntaActual.idPregunta);

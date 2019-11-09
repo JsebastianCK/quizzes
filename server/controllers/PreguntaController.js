@@ -17,7 +17,17 @@ exports.list_pregunta_by_id = function(req, res) {
   };
 
 exports.update_pregunta = (req,res) => {
+  console.log(req.busboy);
   Pregunta.updatePregunta(req.body, (err,pregunta) => {
+    if(err)
+      res.send(err);
+    res.sendStatus(200);
+  })
+}
+
+exports.subir_imagen = (req,res) => {
+  Pregunta.subirImagen(req.body, (err,pregunta) => {
+    console.log(err);
     if(err)
       res.send(err);
     res.sendStatus(200);

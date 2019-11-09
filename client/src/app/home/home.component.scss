@@ -1,7 +1,7 @@
 $small-display: 720px;
 
 .content {
-    height: 100%;
+    height: 100vh;
     background: linear-gradient(-135deg,#c850c0,#4158d0);
     display: flex;
     flex-wrap: wrap;
@@ -26,6 +26,12 @@ $small-display: 720px;
         width: auto;
         margin: 0px 10px;
     }
+}
+.respuesta {
+    margin: 5px 0px;
+    border-radius: 10px;
+    padding: 25px;
+    text-align: center;
 }
 
 .welcome {
@@ -62,9 +68,7 @@ $small-display: 720px;
 }
 
 .tiempo {
-    position: absolute;
-    top: 5px;
-    left: 5px;
+    margin-top: 20px;
 }
 
 .game-wrapper {

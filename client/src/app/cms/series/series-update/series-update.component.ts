@@ -5,6 +5,7 @@ import {MatTableDataSource} from '@angular/material/table';
 import { SeriesFormComponent } from '../series-form/series-form.component';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material';
+import { DomSanitizer } from '@angular/platform-browser';
 
 
 @Component({
@@ -34,7 +35,7 @@ export class SeriesUpdateComponent implements OnInit {
   nuevaPregunta: boolean = false;
   respuestas;
 
-  constructor(private route: ActivatedRoute, private api: ApiService, public dialog: MatDialog) { }
+  constructor(private route: ActivatedRoute, private api: ApiService, public dialog: MatDialog, private domSanitizer: DomSanitizer) { }
 
   ngOnInit() {
     this.idJuego = parseInt(this.route.snapshot.paramMap.get("idJuego"));
@@ -70,6 +71,16 @@ export class SeriesUpdateComponent implements OnInit {
     // Traigo los datos de la pregunta
     this.api.getPregunta(idPregunta).subscribe(pregunta => {
       this.pregunta = pregunta;
+      
+      let TYPED_ARRAY = new Uint8Array(this.pregunta.imagen.data);
+      const STRING_CHAR = TYPED_ARRAY.reduce((data, byte)=> {return data + String.fromCharCode(byte);}, '');
+      let base64String = btoa(STRING_CHAR);
+
+      this.pregunta.imagen = base64String;
+      let url = this.domSanitizer.bypassSecurityTrustUrl('data:image/jpg;base64, ' + base64String);
+      this.pregunta.url = url;
+      console.log(base64String);
+      console.log(url);
     });
     this.api.getRespuestasPorPregunta(idPregunta).subscribe(respuestas => {
       this.respuestas = respuestas;

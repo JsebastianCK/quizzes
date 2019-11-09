@@ -4,7 +4,8 @@
     </mat-form-field>
     <div *ngIf='!nueva'>
         <label for="singleFile">Subir imagen</label>
-        <input type="file" [(ngModel)]='imagen' (change)="subirImagen($event)" name='imagen' accept=".PNG, .JPEG, .JPG" />
+        <input type="file" [(ngModel)]='imagen' (change)="onUpload($event)" name='imagen' accept=".JPEG, .JPG" />
     </div>
+    <img class="img-fluid" [src]="pregunta.url" alt="">
 </form>
 <button mat-raised-button color="primary" (click)='guardarPregunta()'>Guardar</button>

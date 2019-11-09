@@ -15,6 +15,8 @@ module.exports = function (app) {
         .delete(pregunta.delete_pregunta);
     app.route('/pregunta/:preguntaId/respuestas')
         .get(respuesta.list_respuestas_by_pregunta);
+    app.route('/pregunta/imagen')
+        .post(pregunta.subir_imagen);
 
     // Respuestas
     app.route('/respuesta/:idRespuesta')
@@ -45,5 +47,6 @@ module.exports = function (app) {
 
     // Configuracion
     app.route('/configuracion')
-        .get(configuracion.get_configuracion);
+        .get(configuracion.get_configuracion)
+        .put(configuracion.update_configuracion);   
 }

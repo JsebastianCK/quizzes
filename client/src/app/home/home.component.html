@@ -29,9 +29,9 @@
             </ng-container>
 
             <ng-template #preguntasPendientes>
-                <div class="container-fluid h-100">
+                <div class="container-fluid h-100" style="background: linear-gradient(-135deg,#c850c0,#4158d0)">
                     <div class="container-fluid h-50 d-flex flex-column" style="background-color: white; justify-content: center; align-items: center;position: relative;border-radius: 10px;">
-                        <span class="tiempo"><p>{{tiempoTranscurrido}} segundos restantes</p></span>
+                        <img *ngIf='preguntaActual.url != null' class="img-fluid" [src]="preguntaActual.url" alt="">
                         <p>{{preguntaActual.pregunta}}</p>
                     </div>
                     <div class="container-fluid h-50 d-flex flex-column" style="padding-bottom: 10px;">
@@ -39,22 +39,24 @@
                             *ngIf="!preguntaRespondida; then antesDeResponder; else despuesDeResponder">
                         </ng-container>
                         <ng-template #antesDeResponder>
-                            <div class="flex-grow-1" *ngFor="let respuesta of respuestas | async; let i = index" [ngStyle]="{'background-color': colores[i], 'margin': '5px 0px', 'border-radius': '10px'}" (click)="responderPregunta(respuesta.correcta)">
-                                {{respuesta.respuesta}}
+                            <div class="row">
+                                <div class="col-sm-12 col-md-6 respuesta" *ngFor="let respuesta of respuestas | async; let i = index" [ngStyle]="{'background-color': colores[i]}" (click)="responderPregunta(respuesta.correcta)">
+                                    {{respuesta.respuesta}}
+                                </div>
                             </div>
                         </ng-template>
                         <ng-template #despuesDeResponder>
-                            <div *ngIf="respuestaCorrecta" class="correcto">
-                                <div class="container-fluid h-100">
-                                    
+                            <div *ngIf="respuestaCorrecta" class="flex-grow-1">
+                                <div class="flex-grow-1" style="background-color: #28a745; margin: 5px 0px">
+                                    <p style="color: white">CORRECTO</p>
                                 </div>
-                                <img src="../../assets/img/correcto.png"/>
                             </div>
                             <div *ngIf="!respuestaCorrecta" class="correcto">
                                 MAL CHE
                             </div>
                         </ng-template>
                     </div>
+                    <span class="tiempo"><p>{{tiempoTranscurrido}} segundos restantes</p></span>
                 </div>
             </ng-template>
             <ng-template #terminoJuego>
@@ -68,9 +70,9 @@
         </ng-template>
         
         <ng-template #pendienteJuego>
-            <div class="container">
+            <div class="container cajita">
                 <h1 class="welcome">Hola, {{nombreJugador}}</h1>
-                <p>Por favor, espera a que inicien la sala de Juego.</p>
+                <p>{{configuracion.mensajeBienvenida}}</p>
             </div>
         </ng-template>
     </ng-template>
