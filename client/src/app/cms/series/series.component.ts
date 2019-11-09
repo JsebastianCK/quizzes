@@ -40,6 +40,7 @@ export class SeriesComponent implements OnInit {
 
   iniciarJuego(juego) {
     this.webSocket.send('iniciarJuego' , juego);
+    this.router.navigate(['/cms/info']);
   }
 
   aplicarFiltro(filtro) {

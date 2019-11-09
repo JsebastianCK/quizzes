@@ -61,7 +61,7 @@ export class ApiService {
     return this.http.get(this.baseUri + '/juego');
   }
 
-  getJuego(id): Observable<Object> {
+  getJuego(id): Observable<any> {
     return this.http.get(this.baseUri + '/juego/' + id);
   }
 

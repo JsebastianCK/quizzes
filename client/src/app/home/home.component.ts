@@ -52,7 +52,7 @@ export class HomeComponent implements OnInit {
     this.jugadorForm = this.formBuilder.group({
       nombre: ''
     });
-    
+    document.body.style.background = 'background: linear-gradient(-135deg,#c850c0,#4158d0)';
   }
 
   ngOnInit() {
