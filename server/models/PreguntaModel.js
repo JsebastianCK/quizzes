@@ -17,10 +17,18 @@ Pregunta.getPreguntaById = function (preguntaId, result) {
 };
 
 Pregunta.updatePregunta = function(pregunta , result) {
-    sql.query('UPDATE pregunta SET pregunta = ?, imagen = ? WHERE idPregunta = ?',
-                [pregunta.pregunta, pregunta.imagen,pregunta.idPregunta],
+    data = {
+        pregunta: pregunta.pregunta,
+        imagen: null
+    };
+    if(pregunta.imagen.length > 0) {
+        let bufferValue = Buffer.from(pregunta.imagen,"base64");
+        data.imagen = bufferValue;
+    }
+    console.log(data);
+    sql.query('UPDATE pregunta SET ? WHERE idPregunta = ?',
+                [data , pregunta.idPregunta],
                 (err,res) => {
-                    console.log(pregunta);
                     if(err)
                         result(null,err);
                     else
@@ -51,6 +59,18 @@ Pregunta.getAllPreguntas = function (result) {
                 result(null, res);
             }
         });   
+};
+
+Pregunta.subirImagen = function (imagen, result) {
+    sql.query("UPDATE pregunta SET imagen = ? where idPregunta = 11",imagen, function (err, res) {
+        console.log(imagen);
+        if(err) {
+            result(null, err);
+        }
+        else{
+            result(null, res);
+        }
+    });   
 };
 
 Pregunta.deletePregunta = function (idPregunta , result) {

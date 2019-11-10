@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ApiService } from 'src/app/api.service';
+import { MatSnackBar } from '@angular/material';
 
 
 @Component({
@@ -17,7 +18,7 @@ export class RespuestaFormComponent implements OnInit {
 
   cantidadMaximaRespuestas: boolean;
 
-  constructor(private api: ApiService) {
+  constructor(private api: ApiService, private snackBar: MatSnackBar) {
   }
 
   ngOnInit() {
@@ -29,7 +30,6 @@ export class RespuestaFormComponent implements OnInit {
   }
 
   checkRespuesta(respuesta) {
-    console.log(respuesta);
     this.api.updateRespuestaCorrecta({
       idRespuesta: respuesta.idRespuesta,
       respuesta: respuesta.respuesta,
@@ -61,6 +61,7 @@ export class RespuestaFormComponent implements OnInit {
     this.respuestas.forEach(element => {
       this.actualizarRespuesta(element);
     });
+    this.snackBar.open('Se guardo correctamente' , 'Respuesta' , {duration: 2500})
   }
 
   guardarNueva(respuesta) {
@@ -71,8 +72,6 @@ export class RespuestaFormComponent implements OnInit {
   }
 
   actualizarRespuesta(respuesta) {
-    console.log('actualizando respuesta');
-    console.log(respuesta);
     this.api.updateRespuesta(respuesta).subscribe(
       () => {},
       () => {},

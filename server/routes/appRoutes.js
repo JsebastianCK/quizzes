@@ -15,6 +15,8 @@ module.exports = function (app) {
         .delete(pregunta.delete_pregunta);
     app.route('/pregunta/:preguntaId/respuestas')
         .get(respuesta.list_respuestas_by_pregunta);
+    app.route('/pregunta/imagen')
+        .post(pregunta.subir_imagen);
 
     // Respuestas
     app.route('/respuesta/:idRespuesta')
@@ -41,9 +43,12 @@ module.exports = function (app) {
     app.route('/jugador')
         .get(jugador.list_all_jugadores)
         .post(jugador.create_jugador)
-        .put(jugador.update_puntaje);
+        .put(jugador.update_jugador);
+    app.route('/jugador/:idJugador')
+        .get(jugador.get_jugador);
 
     // Configuracion
     app.route('/configuracion')
-        .get(configuracion.get_configuracion);
+        .get(configuracion.get_configuracion)
+        .put(configuracion.update_configuracion);   
 }

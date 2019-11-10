@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { WebsocketService } from 'src/app/websocket.service';
+import { ApiService } from 'src/app/api.service';
 
 @Component({
   selector: 'app-jugador',
@@ -19,11 +20,30 @@ export class JugadorComponent implements OnInit {
 
   preguntasTotales: number;
 
-  constructor(private webSocket: WebsocketService) { }
+  constructor(private webSocket: WebsocketService, private api: ApiService) { }
 
   ngOnInit() {
-    this.modo = 'indeterminate';
-    this.jugador.preguntaActual = 0;
+    this.api.getJugador(this.jugador.idJugador).subscribe(
+      (res) => {
+        res = res[0];
+        this.jugador.puntaje = res.puntaje;
+        this.jugador.jugando = res.jugando;
+        this.jugador.preguntaActual = res.preguntaActual
+        this.modo = (this.jugador.jugando == 0) ? 'indeterminate' : 'determinate';
+        this.jugador.termino = (this.jugador.jugando == -1);
+        this.api.getJuego(this.jugador.jugando).subscribe(
+          (res) => {
+            res = res[0];
+            this.preguntasTotales = res.cantPreguntas;
+            if(!this.jugador.termino)
+              this.progreso = (this.jugador.preguntaActual/this.preguntasTotales)*100;
+            else
+              this.progreso = 100;
+          }
+        )
+
+      }
+    )
     this.webSocket.listen('pasoPregunta').subscribe(
       (res) => {
         if(res.idJugador == this.jugador.idJugador) {

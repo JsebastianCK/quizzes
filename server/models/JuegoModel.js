@@ -24,7 +24,16 @@ Juego.getAllJuegos = (result) => {
 
 
 Juego.getJuegoById = function (juegoId, result) {
-        sql.query("SELECT * FROM juego WHERE idJuego = ? ", juegoId, function (err, res) {             
+        sql.query(`
+            SELECT jg.*, sr.cantPreguntas
+            FROM juego jg
+            LEFT JOIN (
+                SELECT idJuego, count(*) as cantPreguntas
+                FROM pregunta
+                GROUP BY idJuego
+            ) sr
+            ON jg.idJuego = sr.idJuego
+            WHERE jg.idJuego = ? `, juegoId, function (err, res) {             
             if(err) {
                 result(err, null);
             }

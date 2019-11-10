@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../environments/environment';
 
@@ -11,6 +11,11 @@ export class ApiService {
   private baseUri: string = `http://${environment.ip}:5000`;
 
   constructor(private http: HttpClient) { }
+
+  subirImagePregunta(imagen) {
+    console.log(imagen);
+    return this.http.post(`${this.baseUri}/pregunta/imagen`, imagen);
+  }
 
   // Pregunta
   getPreguntas(): Observable<Object> {
@@ -26,6 +31,7 @@ export class ApiService {
   }
 
   updatePregunta(pregunta): Observable<Object> {
+    console.log(pregunta);
     return this.http.put(this.baseUri + '/pregunta' , pregunta);
   }
 
@@ -42,7 +48,11 @@ export class ApiService {
     return this.http.get(this.baseUri + '/jugador');
   }
 
-  updatePuntaje(jugador): Observable<Object> {
+  getJugador(idJugador): Observable<any> {
+    return this.http.get(this.baseUri + '/jugador/' + idJugador);
+  }
+
+  updateJugador(jugador): Observable<Object> {
     return this.http.put(this.baseUri + '/jugador' , jugador);
   }
 
@@ -51,11 +61,11 @@ export class ApiService {
     return this.http.get(this.baseUri + '/juego');
   }
 
-  getJuego(id): Observable<Object> {
+  getJuego(id): Observable<any> {
     return this.http.get(this.baseUri + '/juego/' + id);
   }
 
-  createJuego(juego): Observable<Object> {
+  createJuego(juego): Observable<any> {
     return this.http.post(this.baseUri + '/juego/' , juego);
   }
 
@@ -91,5 +101,9 @@ export class ApiService {
   // Configuracion
   getConfiguracion() {
     return this.http.get(`${this.baseUri}/configuracion`);
+  }
+  updateConfiguracion(configuracion) {
+    return this.http.put(`${this.baseUri}/configuracion` , configuracion);
+
   }
 }

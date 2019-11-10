@@ -12,8 +12,8 @@ let Jugador = require('./models/JugadorModel');
 
 const port = process.env.PORT || 5000;
 
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({limit: '50mb', extended: true }));
+app.use(bodyParser.json({limit: '50mb', extended: true}));
 app.use(cors());
 
 // Agrego las routes
@@ -31,9 +31,12 @@ io.on('connection' , (socket) => {
         Jugador.createJugador({
             idJugador:idJugador,
             nombre: jugador.nombre,
-            puntaje: 0
+            puntaje: 0,
+            preguntaActual: 0,
+            jugando: 0
         } , () => {});
         io.emit('entrarSala' , jugador);
+        io.to(jugador.idJugador).emit('devolverID' , idJugador);
     });
 
     // El jugador avanzo a la siguiente pregunta.
