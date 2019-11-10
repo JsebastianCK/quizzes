@@ -19,6 +19,10 @@ Configuracion.getConfiguracion = (result) => {
     })
 }
 Configuracion.updateConfiguracion = (configuracion, result) => {
+    if(configuracion.imagenPresentacion.length > 0) {
+        let bufferValue = Buffer.from(configuracion.imagenPresentacion, 'base64');
+        configuracion.imagenPresentacion = bufferValue;
+    }
     sql.query(`
             UPDATE configuracion SET ?
         `,configuracion , (err,res) => {

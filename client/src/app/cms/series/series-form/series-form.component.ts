@@ -41,7 +41,7 @@ export class SeriesFormComponent implements OnInit {
   }
 
   actualizarPregunta() {
-    this.pregunta.imagen = this.pregunta.url.substring(23);
+    this.pregunta.imagen = this.pregunta.url.substring(22);
     this.api.updatePregunta(this.pregunta).subscribe(
       (res) => {},
       () => {
@@ -57,7 +57,10 @@ export class SeriesFormComponent implements OnInit {
       idJuego: this.idJuego
     }).subscribe(
       res => {},
-      err => {this.refrescar()}
+      err => {
+        this.refrescar();
+        this.snackBar.open('Se creo satisfactoriamente' , 'Pregunta' , {duration: 2500})
+      }
     );
   }
 
