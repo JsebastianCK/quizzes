@@ -44,8 +44,6 @@ Jugador.updateJugador = function(jugador , result) {
         preguntaActual: jugador.preguntaActual,
         jugando: jugador.jugando
     };
-    console.log(data);
-    console.log(jugador.idJugador);
     sql.query('UPDATE jugador SET ? WHERE idJugador = ?',
                 [data , jugador.idJugador],
                 (err,res) => {

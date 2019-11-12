@@ -60,7 +60,6 @@ Respuesta.deleteRespuesta = function(idRespuesta , result) {
     DELETE FROM respuesta WHERE idRespuesta = ?`,
     idRespuesta,
     (err,res) => {
-        console.log(idRespuesta);
         if(err)
             result(null,err);
         else

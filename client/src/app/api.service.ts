@@ -31,7 +31,6 @@ export class ApiService {
   }
 
   updatePregunta(pregunta): Observable<Object> {
-    console.log(pregunta);
     return this.http.put(this.baseUri + '/pregunta' , pregunta);
   }
 

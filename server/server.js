@@ -25,7 +25,6 @@ io.on('connection' , (socket) => {
     let adentro = false;
     // Una persona entro a la sala.
     socket.on('entrarSala' , function(jugador){
-        console.log(`${idJugador}: ${jugador.nombre}`);
         adentro = true;
         jugador.idJugador = idJugador;
         Jugador.createJugador({
@@ -48,7 +47,6 @@ io.on('connection' , (socket) => {
     // Alertar a los jugadores
     socket.on('alertar' , () => {
         io.emit('alerta');
-        console.log('se alerto a los jugadores.');
     })
 
     socket.on('iniciarJuego' , (idJuego) => {
@@ -56,7 +54,6 @@ io.on('connection' , (socket) => {
     })
 
     socket.on('expulsarJugador' , function(jugador) {
-        console.log(`Expulsando a ${jugador.nombre}: ${jugador.idJugador}`);
         io.to(jugador.idJugador).emit('expulsado');
         Jugador.deleteJugador(jugador.idJugador , () => {});
         io.emit('salirSala' , idJugador);
@@ -65,10 +62,13 @@ io.on('connection' , (socket) => {
 
     socket.on('disconnect', function() {
         if(adentro) {
-            console.log(`Se deconecto ${idJugador}`);
             Jugador.deleteJugador(idJugador , () => {});
             io.emit('salirSala' , idJugador);
         }
+    })
+
+    socket.on('cambioConfiguracion' , () => {
+        io.emit('cambioConfiguracion');
     })
 })
 

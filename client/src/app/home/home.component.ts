@@ -59,6 +59,9 @@ export class HomeComponent implements OnInit {
     this.webSocket.listen('alerta').subscribe((data) => {
       this.alerta = true;
     })
+    this.webSocket.listen('cambioConfiguracion').subscribe(
+      () => {this.ngOnInit()}
+    )
     this.webSocket.listen('expulsado').subscribe(() => {
       this.expulsado = true;
     })
@@ -68,7 +71,13 @@ export class HomeComponent implements OnInit {
     this.api.getConfiguracion().subscribe(
       (res) => {
         this.configuracion = res[0];
-        this.tiempo = this.configuracion.tiempoPregunta
+        let TYPED_ARRAY = new Uint8Array(this.configuracion.imagenPresentacion.data);
+        const STRING_CHAR = TYPED_ARRAY.reduce((data, byte)=> {return data + String.fromCharCode(byte);}, '');
+        let base64String = btoa(STRING_CHAR);
+
+        this.configuracion.imagenPresentacion = base64String;
+        this.configuracion.imagenPresentacion = this.domSanitizer.bypassSecurityTrustUrl('data:image/jpg;base64, ' + base64String);
+        this.tiempo = this.configuracion.tiempoPregunta;
       }
     )
 

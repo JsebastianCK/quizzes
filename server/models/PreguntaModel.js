@@ -25,7 +25,6 @@ Pregunta.updatePregunta = function(pregunta , result) {
         let bufferValue = Buffer.from(pregunta.imagen,"base64");
         data.imagen = bufferValue;
     }
-    console.log(data);
     sql.query('UPDATE pregunta SET ? WHERE idPregunta = ?',
                 [data , pregunta.idPregunta],
                 (err,res) => {
@@ -41,7 +40,6 @@ Pregunta.createPregunta = function(pregunta , result) {
                 [pregunta.pregunta],
                 (err,res) => {
                     if(err) {
-                        console.log(err);
                         result(null,err);
                     }
                     else {
@@ -63,7 +61,6 @@ Pregunta.getAllPreguntas = function (result) {
 
 Pregunta.subirImagen = function (imagen, result) {
     sql.query("UPDATE pregunta SET imagen = ? where idPregunta = 11",imagen, function (err, res) {
-        console.log(imagen);
         if(err) {
             result(null, err);
         }
