@@ -64,7 +64,6 @@ Juego.insertPregunta = function(datos , result) {
         INSERT INTO pregunta (idJuego,pregunta) VALUES (?,?) 
     `, [datos.idJuego , datos.pregunta] , (err,res) => {
         if(err) {
-            console.log(err);
             result(null,err);
         }
         else {
@@ -78,11 +77,9 @@ Juego.createJuego = function(nuevoJuego , result) {
         INSERT INTO juego (descripcion) VALUES (?)
     `, [nuevoJuego.descripcion] , (err,res) => {
         if(err) {
-            console.log(err);
             result(null,err);
         }
         else {
-            console.log(res.insertId);
             result(null,res);
         }
     });

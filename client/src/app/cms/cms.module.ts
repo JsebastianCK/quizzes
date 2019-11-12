@@ -7,6 +7,7 @@ import {DomSanitizer} from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { MatTableModule, MatFormFieldModule, MatInputModule, MatRippleModule, MatButtonModule, MatTooltipModule , MatCheckboxModule, MatDialogModule, MatProgressBarModule, MatPaginatorModule, MatSnackBarModule} from '@angular/material';
+import { ColorPickerModule } from 'ngx-color-picker';
 
 import { CmsRoutingModule } from './cms-routing.module';
 
@@ -39,7 +40,8 @@ import { JugadorComponent } from './info/jugador/jugador.component';
     MatDialogModule,
     MatProgressBarModule,
     MatPaginatorModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    ColorPickerModule
   ],
 })
 export class CmsModule {

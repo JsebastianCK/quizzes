@@ -19,6 +19,17 @@
                 ' name="mensajeBienvenida"></textarea>
             </mat-form-field>
         </div>
+        <div class="col-md-1">
+            <label for="pickColor">Color de Fondo</label>
+            <input id='pickColor' [(colorPicker)]="configuracion.fondoJuego" [style.background]="configuracion.fondoJuego"/>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <label for="singleFile">Imagen de Presentacion</label>
+            <input type="file" [(ngModel)]='configuracion.imagenPresentacion' (change)="onUpload($event)" name='imagen' accept=".PNG, .JPEG, .JPG" />
+            <img *ngIf='configuracion.imagenPresentacion' [src]="imagenUrl" class='img-fluid' alt="">
+        </div>
     </div>
     <button mat-raised-button color="primary" (click)='guardarConfiguracion()'>Guardar</button>
 </div>

@@ -41,17 +41,13 @@ export class SeriesUpdateComponent implements OnInit {
     this.idJuego = parseInt(this.route.snapshot.paramMap.get("idJuego"));
     
     this.api.getJuego(this.idJuego).subscribe((data) => {
-      this.juego = data;
+      this.juego = data[0];
     });
     
     this.api.getPreguntasPorJuego(this.idJuego).subscribe((preguntas) => {
       this.dataSource = new MatTableDataSource(preguntas);
       this.dataSource.paginator = this.paginator;
     })
-
-    this.pregunta = {
-      pregunta: ''
-    }
   }
 
   agregarPregunta() {
@@ -79,8 +75,6 @@ export class SeriesUpdateComponent implements OnInit {
       this.pregunta.imagen = base64String;
       let url = this.domSanitizer.bypassSecurityTrustUrl('data:image/jpg;base64, ' + base64String);
       this.pregunta.url = url;
-      console.log(base64String);
-      console.log(url);
     });
     this.api.getRespuestasPorPregunta(idPregunta).subscribe(respuestas => {
       this.respuestas = respuestas;
@@ -105,8 +99,6 @@ export class SeriesUpdateComponent implements OnInit {
 
   // Refresca la tabla a partir del evento del hijo
   refrescar(pregunta) {
-    this.api.getPreguntasPorJuego(this.idJuego).subscribe((preguntas) => {
-      this.dataSource = new MatTableDataSource(preguntas);
-    })
+    this.ngOnInit();
   }
 }
