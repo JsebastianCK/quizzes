@@ -19,10 +19,30 @@ export class InfoComponent implements OnInit {
 
     this.api.getJugadores().subscribe((jugadores) => {
       this.jugadores = jugadores;
+      this.jugadores.sort((a,b) => {
+        if(a.puntaje < b.puntaje)
+          return 1
+        if(a.puntaje > b.puntaje)
+          return -1
+        return 0;
+      });
     })
 
     this.webSocket.listen('entrarSala').subscribe((data) => {
       this.jugadores.push(data);
+      this.jugadores.sort((a,b) => {
+        if(a.puntaje < b.puntaje)
+          return 1
+        if(a.puntaje > b.puntaje)
+          return -1
+        return 0;
+      });
+    });
+
+    this.webSocket.listen('pasoPregunta').subscribe((data) => {
+      this.api.getJugadores().subscribe((jugadores) => {
+        this.jugadores = jugadores;
+      })
     })
 
     this.webSocket.listen('salirSala').subscribe((idJugador) => {
