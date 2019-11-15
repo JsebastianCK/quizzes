@@ -25,6 +25,7 @@ export class SeriesFormComponent implements OnInit {
   cambioAlgo: boolean = true;
   imagen: String; // Guarde la imagen en base64
   url;
+  nuevaImagen: boolean = false;
 
   constructor(private api: ApiService, private snackBar: MatSnackBar) {
   }
@@ -41,7 +42,8 @@ export class SeriesFormComponent implements OnInit {
   }
 
   actualizarPregunta() {
-    this.pregunta.imagen = this.pregunta.url.substring(22);
+    if(this.nuevaImagen)
+      this.pregunta.imagen = this.pregunta.url.substring(22);
     this.api.updatePregunta(this.pregunta).subscribe(
       (res) => {},
       () => {
@@ -69,6 +71,7 @@ export class SeriesFormComponent implements OnInit {
   }
 
   onUpload(event) {
+    this.nuevaImagen = true;
     this.pregunta.imagen = event.target.files[0];
     var reader = new FileReader();
     reader.readAsDataURL(this.pregunta.imagen);
