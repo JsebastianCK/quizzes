@@ -21,7 +21,7 @@ Pregunta.updatePregunta = function(pregunta , result) {
         pregunta: pregunta.pregunta,
         imagen: null
     };
-    if(pregunta.imagen.length > 0) {
+    if(pregunta.imagen) {
         let bufferValue = Buffer.from(pregunta.imagen,"base64");
         data.imagen = bufferValue;
     }
