@@ -1,4 +1,10 @@
 <h3 class="titulo">Jugadores</h3>
+<div *ngIf='inicioJuego' class="container-fluid cajita" style='width: 50%; text-align: center'>
+    <h3 class="titulo">Ganando!</h3>
+    <h4>{{jugadores[0].nombre}}</h4>
+    <span class='badge badge-warning'>{{jugadores[0].puntaje}} pts</span>
+</div>
+<br>
 <div class="container-fluid cajita">
     <p *ngIf="jugadores.length == 0">Todavia no hay nadie conectado.</p> 
     <div *ngFor='let jugador of jugadores'>

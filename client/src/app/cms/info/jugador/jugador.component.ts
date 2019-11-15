@@ -16,13 +16,15 @@ export class JugadorComponent implements OnInit {
   inicioJuego
 
   progreso: Number;
-  modo: String; // Modo de la barra de progreso
+  modo: string; // Modo de la barra de progreso
+  color: string;
 
   preguntasTotales: number;
 
   constructor(private webSocket: WebsocketService, private api: ApiService) { }
 
   ngOnInit() {
+    this.color = 'primary';
     this.api.getJugador(this.jugador.idJugador).subscribe(
       (res) => {
         res = res[0];
@@ -31,16 +33,18 @@ export class JugadorComponent implements OnInit {
         this.jugador.preguntaActual = res.preguntaActual
         this.modo = (this.jugador.jugando == 0) ? 'indeterminate' : 'determinate';
         this.jugador.termino = (this.jugador.jugando == -1);
-        this.api.getJuego(this.jugador.jugando).subscribe(
-          (res) => {
-            res = res[0];
-            this.preguntasTotales = res.cantPreguntas;
-            if(!this.jugador.termino)
+        if(!this.jugador.termino) {
+          this.api.getJuego(this.jugador.jugando).subscribe(
+            (respuesta) => {
+              respuesta = respuesta[0];
+              this.preguntasTotales = respuesta.cantPreguntas;
               this.progreso = (this.jugador.preguntaActual/this.preguntasTotales)*100;
-            else
-              this.progreso = 100;
-          }
-        )
+            }
+          )
+        } else {
+          this.progreso = 100;
+          this.color = 'accent';
+        }
 
       }
     )

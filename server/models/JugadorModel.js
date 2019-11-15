@@ -8,7 +8,7 @@ var Jugador = function(jugador){
 };
 
 Jugador.getAllJugadores = (result) => {
-    sql.query('SELECT * FROM jugador' , (err,res) => {
+    sql.query('SELECT * FROM jugador ORDER BY puntaje DESC' , (err,res) => {
         if(err)
             result(err,null);
         else

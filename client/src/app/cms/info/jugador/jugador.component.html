@@ -1,4 +1,4 @@
 <div class="container-fluid" style='padding: 15px!important;'>
     <mat-icon svgIcon="delete" (click)='expulsarJugador()'></mat-icon>&nbsp;<b>{{jugador.nombre}}</b><small *ngIf='jugador.jugando == 1' class='float-right'>{{jugador.preguntaActual}} de {{preguntasTotales}} preguntas <span class='badge badge-warning'>{{jugador.puntaje}} pts</span></small>
-    <mat-progress-bar [mode]='modo' [value]="progreso"></mat-progress-bar>
+    <mat-progress-bar [mode]='modo' [value]="progreso" [color]="color"></mat-progress-bar>
 </div>
