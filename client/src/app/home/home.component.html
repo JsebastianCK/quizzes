@@ -1,4 +1,4 @@
-<div class="content" [ngStyle]="{'background': configuracion.fondoJuego}" *ngIf='!expulsado'>
+<div class="container content" [ngStyle]="{'background': configuracion.fondoJuego, 'height':'100%'}" *ngIf='!expulsado'>
     <div *ngIf="alerta">
         <span>EL JUEGO COMENZARA PRONTO</span>
     </div>
@@ -9,22 +9,22 @@
     <ng-template #estaEsperando>
         <div class="container-fluid">
             <div class="row">
-                <div class="col-sm-12" style='display: flex; align-items: center; justify-content: center;'>
-                    <img [src]="configuracion.imagenPresentacion" alt="" class="img-fluid">
+                <div class="col-sm-12 text-center" >
+                    <img [src]="configuracion.imagenPresentacion" alt="" class="img-responsive" style="width:80%;">
                 </div>
             </div>
             <br>
             <div class="row">
                 <div class="col-sm-12">
                     <div class="container">
-                        <h1 class="welcome">{{configuracion.titulo}}</h1>
+                        <h2 class="welcome text-center">{{configuracion.titulo}}</h2>
                         <form [formGroup]="jugadorForm" (ngSubmit)="entrarSala(jugadorForm.value)">
                                 <div>
                                     <input class="input" id="name" type="text" formControlName="nombre" placeholder="Nombre">
                                 </div>
                             <button class="entrar" type="submit">Entrar</button>
                         </form>
-                    </div>  
+                    </div>
                 </div>
             </div>
         </div>
@@ -42,8 +42,8 @@
 
             <ng-template #preguntasPendientes>
                 <div class="container-fluid h-100" style="background: linear-gradient(-135deg,#c850c0,#4158d0)">
-                    <div class="container-fluid h-50 d-flex flex-column" style="background-color: white; justify-content: center; align-items: center;position: relative;border-radius: 10px;">
-                        <img *ngIf='preguntaActual.url != null' class="img-fluid" [src]="preguntaActual.url" alt="">
+                    <div class="container d-flex flex-column" style="background-color: white; justify-content: center; align-items: center;position: relative;border-radius: 10px; margin-top:30px;">
+                        <img *ngIf='preguntaActual.url != null' style="width:80%;" [src]="preguntaActual.url" alt="">
                         <p>{{preguntaActual.pregunta}}</p>
                     </div>
                     <div class="container-fluid h-50 d-flex flex-column" style="padding-bottom: 10px;">
@@ -51,41 +51,57 @@
                             *ngIf="!preguntaRespondida; then antesDeResponder; else despuesDeResponder">
                         </ng-container>
                         <ng-template #antesDeResponder>
-                            <div class="row">
-                                <div class="col-sm-12 col-md-6 respuesta" *ngFor="let respuesta of respuestas | async; let i = index" [ngStyle]="{'background-color': colores[i]}" (click)="responderPregunta(respuesta.correcta)">
-                                    {{respuesta.respuesta}}
+                            <div class="row" >
+                                <div class="col-sm-12 col-md-12 respuesta"
+                                  *ngFor="let respuesta of respuestas | async; let i = index"
+                                      [ngStyle]="{'background-color': colores[i]}"
+                                      (click)="responderPregunta(respuesta.correcta)">
+                                          <p>{{respuesta.respuesta}}</p>
                                 </div>
                             </div>
                         </ng-template>
                         <ng-template #despuesDeResponder>
                             <div *ngIf="respuestaCorrecta" class="flex-grow-1">
-                                <div class="flex-grow-1" style="background-color: #28a745; margin: 5px 0px">
-                                    <p style="color: white">CORRECTO</p>
+                                <div class="flex-grow-1" style="background-color: #28a745; margin: 20px 0px; padding:5px;">
+                                    <p style="color: white; font-size:20px; font-weight:bold; width:100%; text-align:center; margin-top:10px;">CORRECTO</p>
                                 </div>
                             </div>
                             <div *ngIf="!respuestaCorrecta" class="correcto">
-                                MAL CHE
+                              <div class="flex-grow-1" style="background-color: #d63131; margin: 20px 0px; padding:5px;">
+                                  <p style="color: white; font-size:20px; font-weight:bold; width:100%; text-align:center; margin-top:10px;">INCORRECTO</p>
+                              </div>
                             </div>
                         </ng-template>
-                        <span class="tiempo"><p>{{tiempoTranscurrido}} segundos restantes</p></span>
+                        <span class="tiempo">{{tiempoTranscurrido}}</span>
+
                     </div>
+
                 </div>
             </ng-template>
             <ng-template #terminoJuego>
                 <div class="game-wrapper">
                     <div class="pregunta">
-                        <h1>Felicitaciones!</h1>
-                        <p>Conseguiste <b>{{puntaje}}</b> puntos</p>
+                        <h1>Conseguiste <b>{{puntaje}}</b> puntos!</h1><br/>
+                        <button class="entrar" (click)="volver()">Volver</button>
                     </div>
                 </div>
             </ng-template>
         </ng-template>
-        
+
         <ng-template #pendienteJuego>
-            <div class="container cajita">
-                <h1 class="welcome">Hola, {{nombreJugador}}</h1>
-                <p>{{configuracion.mensajeBienvenida}}</p>
+            <div class="row text-center">
+                <div class="col-sm-12" style='display: flex; align-items: center; justify-content: center;'>
+                    <img [src]="configuracion.imagenPresentacion" alt="" style="width:80%;">
+                </div>
+                <div class="col-sm-12">
+                    <div class="container">
+                        <h1 class="welcome">Hola, {{nombreJugador}}</h1>
+                        <p>{{configuracion.mensajeBienvenida}}</p>
+                        <p>Esperando inicio del Juego...</p>
+                    </div>
+                </div>
             </div>
+
         </ng-template>
     </ng-template>
 

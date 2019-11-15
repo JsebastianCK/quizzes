@@ -19,14 +19,14 @@ export class HomeComponent implements OnInit {
   alerta: boolean = false;
   jugadorForm;  // Form del jugador
   puntaje: number = 0;
-  
+
   preguntas = [];
   preguntaActual;
   idPreguntaActual: number;
   preguntasTotales: number;
   intervalo;
   termino: boolean = false;
-  
+
   tiempo: number;
   tiempoTranscurrido: number = this.tiempo;
 
@@ -112,7 +112,7 @@ export class HomeComponent implements OnInit {
           this.empezarTiempo();
         })
       }
-      
+
     });
 
   }
@@ -124,7 +124,7 @@ export class HomeComponent implements OnInit {
 
     if(correcta == 1){
       this.respuestaCorrecta = true;
-      this.puntaje += 10 + this.tiempoTranscurrido;  
+      this.puntaje += 10 + this.tiempoTranscurrido;
     }
     this.api.updateJugador({
       idJugador: this.idJugador,
@@ -140,6 +140,11 @@ export class HomeComponent implements OnInit {
 
 
 
+  }
+
+  // Empieza el tiempo
+  volver() {
+    location.reload(true);
   }
 
   // Empieza el tiempo
@@ -194,7 +199,7 @@ export class HomeComponent implements OnInit {
     }
     this.webSocket.send('pasoPregunta' , {
       nombre: this.nombreJugador,
-      preguntaActual: this.idPreguntaActual+1,
+      preguntaActual: this.idPreguntaActual,
       puntaje: this.puntaje
     });
     this.api.updateJugador(data).subscribe();
