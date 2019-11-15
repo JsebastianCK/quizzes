@@ -44,6 +44,9 @@ export class InfoComponent implements OnInit {
       this.api.getJugadores().subscribe((jugadores) => {
         this.jugadores = jugadores;
         this.terminoPartida = this.checkFinPartida();
+
+        if(this.terminoPartida)
+          this.webSocket.send('terminoTodo');
       })
     })
     
@@ -66,7 +69,6 @@ export class InfoComponent implements OnInit {
       if(jugador.jugando != -1)
         terminaron = false;
     });
-    console.log(terminaron);
     return terminaron;
   }
 

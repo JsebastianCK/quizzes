@@ -56,6 +56,9 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.webSocket.listen('terminoTodo').subscribe(() => {
+      window.location.reload();
+    })
     this.webSocket.listen('alerta').subscribe((data) => {
       this.alerta = true;
     })

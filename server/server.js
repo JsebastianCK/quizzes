@@ -70,6 +70,10 @@ io.on('connection' , (socket) => {
     socket.on('cambioConfiguracion' , () => {
         io.emit('cambioConfiguracion');
     })
+
+    socket.on('terminoTodo' , () => {
+        io.emit('terminoTodo');
+    })
 })
 
 
