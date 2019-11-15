@@ -14,6 +14,8 @@
 body {
     background-color: #f2f3f8!important;
     margin: 0;
+    padding: 0;
+    height:100vh;
     font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 // html, body { height: 100%; }
@@ -25,11 +27,33 @@ body {
 
 .cajita {
     background-color: white;
+    margin:0 auto;
     padding: 15px;
-    height: 100%;
     box-shadow: 0 0 13px 0 rgba(82,63,105,.05);
 }
 
 .titulo {
     font-size: 1.2rem;
+}
+
+.tiempo{
+  font-weight:bold;
+  font-size:40px;
+  position:absolute;
+  bottom:0px;
+  left:50%;
+  right:50%;
+}
+
+.respuesta{
+  cursor:pointer;
+  padding:0px !important;
+}
+
+.respuesta p{
+  height:30px;
+  line-height:30px;
+  vertical-align: middle;
+  width:100%;
+
 }

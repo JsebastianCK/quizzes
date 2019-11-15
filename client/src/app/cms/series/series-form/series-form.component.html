@@ -3,7 +3,7 @@
         <input matInput placeholder="Pregunta" [(ngModel)]='pregunta.pregunta' name='pregunta'>
     </mat-form-field>
     <div *ngIf='!nueva'>
-        <label for="singleFile">Subir imagen</label>
+        <label for="singleFile">Subir imagen (960x470) </label>
         <input type="file" [(ngModel)]='pregunta.imagen' (change)="onUpload($event)" name='imagen' accept=".PNG, .JPEG, .JPG" />
     </div>
     <img *ngIf="pregunta.url" class="img-fluid" [src]="pregunta.url" alt="">
