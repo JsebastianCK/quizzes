@@ -33,13 +33,14 @@ export class HomeComponent implements OnInit {
   respuestas;
   preguntaRespondida: boolean = false;
   respuestaCorrecta: boolean = false;
+  respuestaElegida;
 
   juego;
 
   // Check si el jugador fue expulsado o no de la sala.
   expulsado: boolean = false;
 
-  configuracion: any;
+  configuracion;
 
   // colores = ['#007aff' , '#28a745' , '#dc3545' , '#ffc107'];
   colores = ['#d2d2d2' , '#d2d2d2' , '#d2d2d2' , '#d2d2d2'];
@@ -122,8 +123,9 @@ export class HomeComponent implements OnInit {
   }
   // Cuando se hace click en alguna respuesta se llama a esta funcion.
   // Entra por parametro si la respuesta elegida es correcta o no.
-  responderPregunta(correcta) {
+  responderPregunta(correcta, idRespuesta) {
     this.preguntaRespondida = true;
+    this.respuestaElegida = idRespuesta;
     clearInterval(this.intervalo);
 
     if(correcta == 1){

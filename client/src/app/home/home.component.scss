@@ -5,19 +5,18 @@ $small-display: 720px;
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    justify-content: center;
     flex-direction: column;
 }
 
-.container {
+.contenedor {
     display: flex;
     flex-wrap: wrap;
     flex-direction: column;
     justify-content: space-between;
-    align-items: center; 
+    align-items: center;
+    border: 2px solid #CCCCCC;
     padding: 10px 50px 50px 50px;
     background-color: white;
-    border-radius: 10px;
     height: auto;
 
     @media screen and (max-width: $small-display) {
@@ -28,7 +27,7 @@ $small-display: 720px;
 }
 .respuesta {
     margin: 5px 0px;
-    border-radius: 10px;
+    border-radius: 5px;
     padding: 25px;
     text-align: center;
 }
@@ -36,34 +35,27 @@ $small-display: 720px;
 .welcome {
     color: black;
     font-weight: bold;
-
-    @media screen and (max-width: $small-display) {
-        margin-bottom: 25px;
-    }
 }
 
 .entrar {
-    background-color: #57b846;
+    background-color: #17D417;
     color: white;
-    border: 1px solid #cecece;
+    border: none;
     padding: 10px;
     width: 100%;
-    border-radius: 25px;
+    border-radius: 5px;
 }
 
 .input {
-    border: none;
+    background-color: #FFFFFF;
     color: #666666;
-    background-color: #e6e6e6;
-    border-radius: 10px;
+    border: 1px solid #CCCCCC;
+    border-radius: 5px;
     outline: none;
-    display: block;
-    margin: 10px 0px;
     padding: 0px 10px;
+    margin: 10px 0px;
     height: 50px;
-    @media screen and (max-width: $small-display) {
-        width: 95%;
-    }
+    width: 100%;
 }
 
 .tiempo {
@@ -109,4 +101,11 @@ $small-display: 720px;
             border-radius: 10px;
         }
     }
+}
+
+.mostrador {
+    border: 2px solid #FFFFFF;
+    border-radius: 5px;
+    margin-top: 5px;
+    width: 100%!important;
 }
