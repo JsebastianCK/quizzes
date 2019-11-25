@@ -18,7 +18,7 @@
     </form>
     <div class='btn-group'>
         <button mat-raised-button color="primary" (click)='guardarRespuestas()'>Guardar</button>
-        <button mat-raised-button color="accent" [disabled]='(respuestas.length == 4)' [matTooltipPosition]="right" matTooltip="{{(respuestas.length == 4) ? 'Se alcanzo la cantidad maxima de respuestas' : ''}}" (click)='agregarRespuesta()'>Agregar Respuesta</button>
+        <button mat-raised-button color="accent" [disabled]='(respuestas.length == 4)' matTooltipPosition="right" matTooltip="{{(respuestas.length == 4) ? 'Se alcanzo la cantidad maxima de respuestas' : ''}}" (click)='agregarRespuesta()'>Agregar Respuesta</button>
     </div>
 </div>
 

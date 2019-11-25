@@ -42,9 +42,9 @@
 
             <ng-template #preguntasPendientes>
                 <div class="container-fluid h-100">
-                    <div class="container d-flex flex-column" style="background-color: white; justify-content: center; align-items: center;position: relative;border-radius: 10px; margin-top:30px;">
+                    <div class="container d-flex flex-column" style="background:transparent; center; align-items: center;position: relative;border-radius: 10px; margin-top:30px;">
                         <img *ngIf='preguntaActual.url != null' style="width:80%;" [src]="preguntaActual.url" alt="">
-                        <p>{{preguntaActual.pregunta}}</p>
+                        <p [ngStyle]="{'color': configuracion.colorLetraPregunta, 'font-size':'25px'}">{{preguntaActual.pregunta}}</p>
                     </div>
                     <div class="container-fluid h-50 d-flex flex-column" style="padding-bottom: 10px;">
                         <ng-container
@@ -72,7 +72,7 @@
                               </div>
                             </div>
                         </ng-template>
-                        <span class="tiempo">{{tiempoTranscurrido}}</span>
+                        <span class="tiempo" [ngStyle]="{'color': configuracion.colorLetraPregunta}">{{tiempoTranscurrido}}</span>
 
                     </div>
 
@@ -81,7 +81,7 @@
             <ng-template #terminoJuego>
                 <div class="game-wrapper">
                     <div class="pregunta">
-                        <h1>Conseguiste <b>{{puntaje}}</b> puntos!</h1><br/>
+                        <h1 class="text-center">Conseguiste <b>{{puntaje}}</b> puntos!</h1><br/>
                         <button class="entrar" (click)="volver()">Volver</button>
                     </div>
                 </div>

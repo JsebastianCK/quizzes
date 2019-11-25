@@ -41,7 +41,8 @@ export class HomeComponent implements OnInit {
 
   configuracion: any;
 
-  colores = ['#007aff' , '#28a745' , '#dc3545' , '#ffc107'];
+  // colores = ['#007aff' , '#28a745' , '#dc3545' , '#ffc107'];
+  colores = ['#d2d2d2' , '#d2d2d2' , '#d2d2d2' , '#d2d2d2'];
 
   constructor(
     private webSocket: WebsocketService,
@@ -56,9 +57,9 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.webSocket.listen('terminoTodo').subscribe(() => {
-      window.location.reload();
-    })
+    // this.webSocket.listen('terminoTodo').subscribe(() => {
+    //   window.location.reload();
+    // })
     this.webSocket.listen('alerta').subscribe((data) => {
       this.alerta = true;
     })
@@ -139,7 +140,7 @@ export class HomeComponent implements OnInit {
 
     setTimeout(()=>{
         this.siguientePregunta();
-    },2000);
+    },1000);
 
 
 

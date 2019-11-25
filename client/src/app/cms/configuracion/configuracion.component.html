@@ -27,8 +27,14 @@
     <div class="row">
         <div class="col-md-6">
             <label for="singleFile">Imagen de Presentacion</label>
-            <input type="file" [(ngModel)]='configuracion.imagenPresentacion' (change)="onUpload($event)" name='imagen' accept=".PNG, .JPEG, .JPG" />
-            <img *ngIf='configuracion.imagenPresentacion' [src]="imagenUrl" class='img-fluid' alt="">
+            <input type="file" [(ngModel)]='configuracion.imagenPresentacion' (change)="onUpload($event)" name='imagen' accept=".PNG, .JPEG, .JPG" /><br/>
+            <div style="float:left; background:#eeeeee; padding:5px;width:100%; text-align:center;">
+                <img *ngIf='configuracion.imagenPresentacion' [src]="imagenUrl" class='img-fluid' alt="">
+            </div>
+        </div>
+        <div class="col-md-1">
+            <label for="pickColor2">Color Letra Pregunta</label>
+            <input id='pickColor2' [(colorPicker)]="configuracion.colorLetraPregunta" [style.background]="configuracion.colorLetraPregunta"/>
         </div>
     </div>
     <button mat-raised-button color="primary" (click)='guardarConfiguracion()'>Guardar</button>

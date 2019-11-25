@@ -7,8 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SeriesCreateComponent implements OnInit {
 
-  juego: Object = {
-    descripcion: null
+  juego = {
+    descripcion: ''
   };
 
   constructor() { }
