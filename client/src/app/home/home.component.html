@@ -48,10 +48,10 @@
                                 <mat-icon svgIcon="buffer"></mat-icon>&nbsp;{{idPreguntaActual+1}}/{{preguntasTotales}}
                             </div>
                             <div class="col" style="text-align: center;color: #FFFFFF">
-                                <mat-icon svgIcon="clock-outline"></mat-icon>&nbsp;{{tiempoTranscurrido}}
+                                <mat-icon svgIcon="clock"></mat-icon>&nbsp;{{tiempoTranscurrido}}
                             </div>
                             <div class="col" style="text-align: center;color: #FFFFFF">
-                                {{puntaje}}&nbsp;<mat-icon svgIcon="star-outline" style="color: yellow"></mat-icon>
+                                {{puntaje}}&nbsp;<mat-icon svgIcon="star" style="color: yellow"></mat-icon>
                             </div>
                         </div>
                     </div>
@@ -66,9 +66,7 @@
                         <ng-template #antesDeResponder>
                             <div class="row" style="height: 100%;">
                                 <div class="col-sm-12 col-md-12 respuesta"
-                                  *ngFor="let respuesta of respuestas | async; let i = index"
-                                      [ngStyle]="{'background-color': colores[i]}"
-                                      (click)="responderPregunta(respuesta.correcta, respuesta.idRespuesta)">
+                                  *ngFor="let respuesta of respuestas | async; let i = index" (click)="responderPregunta(respuesta.correcta, respuesta.idRespuesta)">
                                           <p>{{respuesta.respuesta}}</p>
                                 </div>
                             </div>
@@ -85,10 +83,20 @@
                 </div>
             </ng-template>
             <ng-template #terminoJuego>
-                <div class="game-wrapper">
-                    <div class="pregunta">
-                        <h1 class="text-center">Conseguiste <b>{{puntaje}}</b> puntos!</h1><br/>
-                        <button class="entrar" (click)="volver()">Volver</button>
+                <div class="container-fluid h-100" style="display: flex;text-align: center;justify-content: center;flex-direction: column;">
+                    <div class="container-fluid h-50" style="color: #FFFFFF">
+                        <br>
+                        <h1>{{nombreJugador}}</h1>
+                        <br>
+                        <h1 style="font-size: 5rem">{{puntaje}}&nbsp;
+                        <mat-icon svgIcon="star" style="color: yellow;height: 15vh;width: 15vw;"></mat-icon></h1>
+                        <br>
+                        <div class="esperando">
+                            ESPERANDO RESULTADOS FINALES
+                        </div>
+                    </div>
+                    <div class="container-fluid h-50">
+                        <img [src]="configuracion.imagenPresentacion" class="img-responsive" style="width:100%;">
                     </div>
                 </div>
             </ng-template>

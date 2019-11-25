@@ -30,6 +30,7 @@ $small-display: 720px;
     border-radius: 5px;
     padding: 25px;
     text-align: center;
+    background-color: #FFFFFF;
 }
 
 .welcome {
@@ -108,4 +109,12 @@ $small-display: 720px;
     border-radius: 5px;
     margin-top: 5px;
     width: 100%!important;
+}
+
+.esperando {
+    width: 100%;
+    padding: 10px 25px;
+    background-color: #FF6600;
+    border: 5px solid #FFFFFF;
+    border-radius: 5px;
 }
