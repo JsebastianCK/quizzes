@@ -106,8 +106,15 @@ export class HomeComponent implements OnInit {
       this.juego = juego;
       // Si el jugador ya esta dentro de la sala entonces cargo todas las preguntas
       if(this.entroASala) {
-        console.log(this.idJugador);
-        this.api.updateJugador({idJugador: this.idJugador, jugando: juego.idJuego, preguntaActual: 1, puntaje: 0, nombre: this.nombreJugador,correctas:0,incorrectas:0}).subscribe(
+        this.api.updateJugador({
+          idJugador: this.idJugador,
+          jugando: juego.idJuego,
+          preguntaActual: 0,
+          puntaje: 0,
+          nombre: this.nombreJugador,
+          correctas: this.sumacorrecta,
+          incorrectas: this.sumaincorrecta
+        }).subscribe(
           (res) => {console.log(res)},
           (err) => {console.log(err)}
         );
