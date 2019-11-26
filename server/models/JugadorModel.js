@@ -42,7 +42,9 @@ Jugador.updateJugador = function(jugador , result) {
         nombre: jugador.nombre,
         puntaje: jugador.puntaje,
         preguntaActual: jugador.preguntaActual,
-        jugando: jugador.jugando
+        jugando: jugador.jugando,
+        correctas: jugador.correctas,
+        incorrectas: jugador.incorrectas
     };
     sql.query('UPDATE jugador SET ? WHERE idJugador = ?',
                 [data , jugador.idJugador],

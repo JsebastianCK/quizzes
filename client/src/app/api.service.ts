@@ -43,7 +43,7 @@ export class ApiService {
   }
   
   // Jugador
-  getJugadores(): Observable<Object> {
+  getJugadores(): Observable<any> {
     return this.http.get(this.baseUri + '/jugador');
   }
 
@@ -101,8 +101,8 @@ export class ApiService {
   getConfiguracion() {
     return this.http.get(`${this.baseUri}/configuracion`);
   }
+  
   updateConfiguracion(configuracion) {
     return this.http.put(`${this.baseUri}/configuracion` , configuracion);
-
   }
 }

@@ -15,7 +15,8 @@ export class JugadorComponent implements OnInit {
   @Input()
   inicioJuego
 
-  progreso: Number;
+  progresook: Number; 
+  progresoerr: Number;
   modo: string; // Modo de la barra de progreso
   color: string;
 
@@ -30,6 +31,8 @@ export class JugadorComponent implements OnInit {
         res = res[0];
         this.jugador.puntaje = res.puntaje;
         this.jugador.jugando = res.jugando;
+        this.jugador.correctas = res.correctas;
+        this.jugador.incorrectas = res.incorrectas;
         this.jugador.preguntaActual = res.preguntaActual
         this.modo = (this.jugador.jugando == 0) ? 'indeterminate' : 'determinate';
         this.jugador.termino = (this.jugador.jugando == -1);
@@ -38,11 +41,13 @@ export class JugadorComponent implements OnInit {
             (respuesta) => {
               respuesta = respuesta[0];
               this.preguntasTotales = respuesta.cantPreguntas;
-              this.progreso = (this.jugador.preguntaActual/this.preguntasTotales)*100;
+              this.progresook = (this.jugador.preguntaActual-1) * 100 / this.preguntasTotales;
+              this.progresoerr = (this.jugador.preguntaActual-1) * 100 / this.preguntasTotales;
             }
           )
         } else {
-          this.progreso = 100;
+          this.progresook = 0;
+          this.progresoerr = 0;
           this.color = 'accent';
         }
 
@@ -58,7 +63,8 @@ export class JugadorComponent implements OnInit {
     this.webSocket.listen('inicioJuego').subscribe(
       (res) => {
         this.preguntasTotales = res.cantPreguntas;
-        this.progreso = 0;
+        this.progresook = 0;
+        this.progresoerr = 0;
         this.modo = 'determinate';
       }
     )
@@ -67,7 +73,9 @@ export class JugadorComponent implements OnInit {
   actualizarJugador(actualizacion) {
     this.jugador.puntaje = actualizacion.puntaje
     this.jugador.preguntaActual = actualizacion.preguntaActual;
-    this.progreso = (this.jugador.preguntaActual/this.preguntasTotales)*100;
+    alert(this.jugador.correctas+' '+this.jugador.incorrectas);
+    this.progresook  = (this.jugador.correctas) * 100 / this.preguntasTotales;
+    this.progresoerr = (this.jugador.incorrectas) * 100 / this.preguntasTotales;
   }
 
   expulsarJugador() {

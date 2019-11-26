@@ -30,6 +30,9 @@ export class HomeComponent implements OnInit {
   terminoTodo: boolean = false;
   posicion;
 
+  sumacorrecta = 0;
+  sumaincorrecta = 0;
+
   tiempo: number;
   tiempoTranscurrido: number = this.tiempo;
   ctaRegre: number = 5;
@@ -146,11 +149,16 @@ export class HomeComponent implements OnInit {
     if(correcta == 1){
       this.respuestaCorrecta = true;
       this.puntaje += 10 + this.tiempoTranscurrido;
+      this.sumacorrecta = this.sumacorrecta + 1;
+    }else{
+      this.sumaincorrecta = this.sumaincorrecta + 1;
     }
     this.api.updateJugador({
       idJugador: this.idJugador,
       puntaje: this.puntaje,
-      preguntaActual: this.preguntaActual+1
+      preguntaActual: this.preguntaActual+1,
+      correctas: this.sumacorrecta,
+      incorrectas: this.sumaincorrecta
     }).subscribe((res) => {
       console.log(res)
     });
@@ -237,6 +245,7 @@ export class HomeComponent implements OnInit {
       preguntaActual: this.idPreguntaActual,
       puntaje: this.puntaje
     });
+    alert('seba');
     this.api.updateJugador(data).subscribe();
 
   }
