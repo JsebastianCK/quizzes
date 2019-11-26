@@ -41,8 +41,8 @@ export class JugadorComponent implements OnInit {
             (respuesta) => {
               respuesta = respuesta[0];
               this.preguntasTotales = respuesta.cantPreguntas;
-              this.progresook = (this.jugador.preguntaActual-1) * 100 / this.preguntasTotales;
-              this.progresoerr = (this.jugador.preguntaActual-1) * 100 / this.preguntasTotales;
+              this.progresook  = (this.jugador.correctas) * 100 / this.preguntasTotales;
+              this.progresoerr = (this.jugador.incorrectas) * 100 / this.preguntasTotales;
             }
           )
         } else {
@@ -73,7 +73,7 @@ export class JugadorComponent implements OnInit {
   actualizarJugador(actualizacion) {
     this.jugador.puntaje = actualizacion.puntaje
     this.jugador.preguntaActual = actualizacion.preguntaActual;
-    alert(this.jugador.correctas+' '+this.jugador.incorrectas);
+    //alert(this.jugador.correctas+' '+this.jugador.incorrectas);
     this.progresook  = (this.jugador.correctas) * 100 / this.preguntasTotales;
     this.progresoerr = (this.jugador.incorrectas) * 100 / this.preguntasTotales;
   }
