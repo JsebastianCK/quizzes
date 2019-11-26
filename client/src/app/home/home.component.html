@@ -83,22 +83,40 @@
                 </div>
             </ng-template>
             <ng-template #terminoJuego>
-                <div class="container-fluid h-100" style="display: flex;text-align: center;justify-content: center;flex-direction: column;">
-                    <div class="container-fluid h-50" style="color: #FFFFFF">
-                        <br>
-                        <h1>{{nombreJugador}}</h1>
-                        <br>
-                        <h1 style="font-size: 5rem">{{puntaje}}&nbsp;
-                        <mat-icon svgIcon="star" style="color: yellow;height: 15vh;width: 15vw;"></mat-icon></h1>
-                        <br>
-                        <div class="esperando">
-                            ESPERANDO RESULTADOS FINALES
+                <ng-container
+                    *ngIf="terminoTodo; then mostrarPosicion;else mostrarPuntaje">
+                </ng-container>
+                <ng-template #mostrarPuntaje>
+                    <div class="container-fluid h-100" style="display: flex;text-align: center;justify-content: center;flex-direction: column;">
+                        <div class="container-fluid h-50" style="color: #FFFFFF">
+                            <br>
+                            <h1>{{nombreJugador}}</h1>
+                            <br>
+                            <h1 style="font-size: 5rem">{{puntaje}}&nbsp;
+                            <mat-icon svgIcon="star" style="color: yellow;height: 15vh;width: 15vw;"></mat-icon></h1>
+                            <br>
+                            <div class="esperando">
+                                ESPERANDO RESULTADOS FINALES
+                            </div>
+                        </div>
+                        <div class="container-fluid h-50">
+                            <img [src]="configuracion.imagenPresentacion" class="img-responsive" style="width:100%;">
                         </div>
                     </div>
-                    <div class="container-fluid h-50">
-                        <img [src]="configuracion.imagenPresentacion" class="img-responsive" style="width:100%;">
+                </ng-template>
+                <ng-template #mostrarPosicion>
+                    <div class="container-fluid h-100">
+                        <div class="container-fluid h-75" style="display: flex;align-items: center;justify-content: center;color: #FFFFFF">
+                            <h1 style="font-size: 8rem">#{{posicion}}</h1>
+                        </div>
+                        <div class="container-fluid h-25" style="display: flex;align-items: center;justify-content: center;flex-direction: column; color: #FFFFFF">
+                            <h1>{{nombreJugador}}</h1>
+                            <br>
+                            <h1>{{puntaje}}&nbsp;
+                            <mat-icon svgIcon="star" style="color: yellow;"></mat-icon></h1>
+                        </div>
                     </div>
-                </div>
+                </ng-template>
             </ng-template>
         </ng-template>
 

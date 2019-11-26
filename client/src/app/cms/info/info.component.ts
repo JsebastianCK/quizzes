@@ -50,6 +50,14 @@ export class InfoComponent implements OnInit {
       })
     })
     
+    window.setInterval(() => {
+      if(this.jugadores.length > 0) {
+        this.terminoPartida = this.checkFinPartida();
+        if(this.terminoPartida)
+            this.webSocket.send('terminoTodo');
+      }
+    }, 1000);
+
     this.webSocket.listen('salirSala').subscribe((idJugador) => {
       // Busco el jugador que se fue por ID y lo elimino de la lista.
       this.jugadores.splice(this.jugadores.findIndex(j => j.idJugador == idJugador), 1);

@@ -26,6 +26,8 @@ export class HomeComponent implements OnInit {
   preguntasTotales: number;
   intervalo;
   termino: boolean = false;
+  terminoTodo: boolean = false;
+  posicion;
 
   tiempo: number;
   tiempoTranscurrido: number = this.tiempo;
@@ -58,9 +60,18 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
-    // this.webSocket.listen('terminoTodo').subscribe(() => {
-    //   window.location.reload();
-    // })
+    this.webSocket.listen('terminoTodo').subscribe(() => {
+      this.api.getJugadores().subscribe(
+        (res) => {
+          res.forEach((jugador,index) => {
+            if(this.idJugador == jugador.idJugador)
+              this.posicion = index + 1; // Le sumo 1 porque el index empieza en cero.
+          });
+        }
+      )
+      this.terminoTodo = true;
+    })
+    window.onbeforeunload = function() { return "Your work will be lost."; };
     this.webSocket.listen('alerta').subscribe((data) => {
       this.alerta = true;
     })
