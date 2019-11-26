@@ -17,6 +17,7 @@ exports.get_jugador = (req, res) => {
 };
 
 exports.update_jugador = (req,res) => {
+  //console.log(req.body);
   Jugador.updateJugador(req.body, (err,jugador) => {
     if(err)
       res.send(err);

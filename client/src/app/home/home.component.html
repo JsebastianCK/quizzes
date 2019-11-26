@@ -45,8 +45,8 @@
                     *ngIf="ctaRegre>0; then cuentaRegresiva; else arrancaJuego">
                 </ng-container>
                 <ng-template #cuentaRegresiva>
-                        <div class="container-fluid h-100 text-center" [ngStyle]="{'background':configuracion.fondoJuego,'padding-top':'50px'}">
-                            <span [ngStyle]="{'color':configuracion.colorLetraPregunta,'font-size':'150px'}">{{ctaRegre}}</span>
+                        <div class="container-fluid h-100 w-100 text-center" [ngStyle]="{'background':configuracion.fondoJuego,'padding-top':'30%'}">
+                            <span [ngStyle]="{'color':configuracion.colorLetraPregunta,'font-size':'250px'}">{{ctaRegre}}</span>
                         </div>
                 </ng-template>
                 <ng-template #arrancaJuego>

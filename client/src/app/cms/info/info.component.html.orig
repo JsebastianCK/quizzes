@@ -1,4 +1,5 @@
-<div class="container-fluid d-flex" style="height: 100%; float:left; min-height:100vh;align-items: center;justify-content: center;flex-direction: column" [ngStyle]="{'background-color': fondoJuego}">
+<<<<<<< Updated upstream
+<div class="container-fluid d-flex" style="height: 100vh;width: 100%;align-items: center;justify-content: center;flex-direction: column" [ngStyle]="{'background-color': fondoJuego}">
     <div *ngIf="terminoPartida" class="container-fluid" style='width: 80%; text-align: center;'>
         <div class="row" style="min-height: 100px;">
             <div class="col ganador">
@@ -38,6 +39,17 @@
                 </div>
             </div>
         </div>
+=======
+<h3 class="titulo">Jugadores</h3>
+<!-- <ng-container
+    *ngIf="terminoPartida; then finalizoJuego; else juegoCurso">
+</ng-container>
+<ng-template #juegoCurso> -->
+    <div *ngIf='inicioJuego' class="container-fluid cajita" style='width: 50%; text-align: center'>
+        <h3 class="titulo">Ganando!</h3>
+        <h4>{{jugadores[0].nombre}}</h4>
+        <span class='badge badge-warning'>{{jugadores[0].puntaje}} pts</span>
+>>>>>>> Stashed changes
     </div>
     <div class="container-fluid cajita" style="width: 80%;background-color: rgba(255, 255, 255, 0.25);padding: 10px 25px;color: #FFFFFF">
         <p *ngIf="jugadores.length == 0">Todavia no hay nadie conectado.</p> 
@@ -45,5 +57,16 @@
             <app-jugador [jugador]='jugador' [inicioJuego]='inicioJuego'></app-jugador>
         </div>
     </div>
+<<<<<<< Updated upstream
 </div>
+=======
+<!-- </ng-template>
 
+<ng-template #finalizoJuego>
+    <div class="container-fluid cajita" style='width: 50%; text-align: center'>
+        <h3 class="titulo">GANADOR!</h3>
+        <h4>{{jugadores[0].nombre}}</h4>
+        <span class='badge badge-warning'>{{jugadores[0].puntaje}} pts</span>
+    </div>
+</ng-template> -->
+>>>>>>> Stashed changes

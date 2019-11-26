@@ -7,6 +7,7 @@ import { SeriesCreateComponent } from './series/series-create/series-create.comp
 import { SeriesUpdateComponent } from './series/series-update/series-update.component';
 
 import { InfoComponent } from './info/info.component';
+import { ControlComponent } from './control/control.component';
 import { ConfiguracionComponent } from './configuracion/configuracion.component';
 import { SeriesFormComponent } from './series/series-form/series-form.component';
 
@@ -31,6 +32,10 @@ const routes: Routes = [
             {
                 path: 'configuracion',
                 component: ConfiguracionComponent
+            },
+            {
+                path: 'control',
+                component: ControlComponent
             },
         ]
     }

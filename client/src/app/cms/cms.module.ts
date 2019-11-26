@@ -20,9 +20,10 @@ import { SeriesFormComponent } from './series/series-form/series-form.component'
 import { RespuestaFormComponent } from './series/respuesta-form/respuesta-form.component';
 import { ConfiguracionComponent } from './configuracion/configuracion.component';
 import { JugadorComponent } from './info/jugador/jugador.component';
+import { ControlComponent } from './control/control.component';
 
 @NgModule({
-  declarations: [CmsComponent,SeriesComponent, InfoComponent, SeriesCreateComponent, SeriesUpdateComponent, SeriesFormComponent, RespuestaFormComponent, ConfiguracionComponent, JugadorComponent],
+  declarations: [CmsComponent,SeriesComponent, InfoComponent, SeriesCreateComponent, SeriesUpdateComponent, SeriesFormComponent, RespuestaFormComponent, ConfiguracionComponent, JugadorComponent, ControlComponent],
   imports: [
     CommonModule,
     CmsRoutingModule,

@@ -40,7 +40,7 @@ export class SeriesComponent implements OnInit {
 
   iniciarJuego(juego) {
     this.webSocket.send('iniciarJuego' , juego);
-    window.open('/cms/info', '_blank');
+    //window.open('/cms/info', '_blank');
   }
 
   aplicarFiltro(filtro) {

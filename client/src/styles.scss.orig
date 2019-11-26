@@ -1,0 +1,45 @@
+/* You can add global styles to this file, and also import other style files */
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins-bold', 'arial', sans-serif;
+    outline: none;
+}
+
+@font-face {
+    font-family: Poppins-bold;
+    src: url(assets/font/Poppins/Poppins-Bold.ttf) format("opentype");
+}
+
+body {
+    background-color: #f2f3f8!important;
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+html, body { height: 100%; }
+
+.btn-play {
+    background-color: #fd397a!important;
+    color: white!important;
+}
+
+.cajita {
+    background-color: white;
+    padding: 15px;
+    height: 100%;
+    box-shadow: 0 0 13px 0 rgba(82,63,105,.05);
+}
+
+<<<<<<< HEAD
+    &.btn-danger {
+        background-color: #fd397a;
+        color: white;
+    }
+}
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+=======
+.titulo {
+    font-size: 1.2rem;
+}
+>>>>>>> e591c26234eff670f2a3ff98cf2e755e9044decf

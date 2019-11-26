@@ -46,6 +46,11 @@ export class JugadorComponent implements OnInit {
             }
           )
         } else {
+<<<<<<< Updated upstream
+          // this.progresook = 0;
+          // this.progresoerr = 0;
+=======
+>>>>>>> Stashed changes
           this.color = 'accent';
         }
 
