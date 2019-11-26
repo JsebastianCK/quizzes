@@ -66,6 +66,19 @@ export class SeriesFormComponent implements OnInit {
     );
   }
 
+  borrarImagen() {
+    this.api.updatePregunta({
+      idPregunta: this.pregunta.idPregunta,
+      imagen: null
+    }).subscribe(
+      (res) => {},
+      () => {
+        this.refrescar();
+        this.snackBar.open('Se guardo correctamente' , 'Pregunta' , {duration: 2500})
+      }
+    );
+  }
+
   refrescar() {
     this.cambio.emit(this.pregunta);
   }

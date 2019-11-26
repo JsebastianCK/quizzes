@@ -46,8 +46,8 @@ export class JugadorComponent implements OnInit {
             }
           )
         } else {
-          this.progresook = 0;
-          this.progresoerr = 0;
+          // this.progresook = 0;
+          // this.progresoerr = 0;
           this.color = 'accent';
         }
 
@@ -73,7 +73,6 @@ export class JugadorComponent implements OnInit {
   actualizarJugador(actualizacion) {
     this.jugador.puntaje = actualizacion.puntaje
     this.jugador.preguntaActual = actualizacion.preguntaActual;
-    //alert(this.jugador.correctas+' '+this.jugador.incorrectas);
     this.progresook  = (this.jugador.correctas) * 100 / this.preguntasTotales;
     this.progresoerr = (this.jugador.incorrectas) * 100 / this.preguntasTotales;
   }

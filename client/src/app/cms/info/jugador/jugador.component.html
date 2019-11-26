@@ -2,8 +2,6 @@
     <!-- <mat-icon svgIcon="delete" (click)='expulsarJugador()'></mat-icon>&nbsp; -->
     <b>{{jugador.nombre}}</b><small *ngIf='jugador.jugando == 1' class='float-right'>{{jugador.preguntaActual}} de {{preguntasTotales}} preguntas <span class='badge badge-warning'>{{jugador.puntaje}} pts</span></small>
     <!-- <mat-progress-bar [mode]='modo' [value]="progreso" [color]="color"></mat-progress-bar> -->
-    {{progresook}}
-    {{progresoerr}}
     <div class="progress">
         <div class="progress-bar bg-success" [ngStyle]="{'width':progresook+'%'}"></div>
         <div class="progress-bar bg-danger"  [ngStyle]="{'width':progresoerr+'%'}"></div>

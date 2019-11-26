@@ -10,6 +10,7 @@ import { ApiService } from 'src/app/api.service';
 export class InfoComponent implements OnInit {
 
   inicioJuego: boolean = false;
+  fondoJuego;
 
   jugadores;
 
@@ -18,6 +19,13 @@ export class InfoComponent implements OnInit {
   constructor(private webSocket: WebsocketService, private api: ApiService,) { }
 
   ngOnInit() {
+
+    this.api.getConfiguracion().subscribe(
+      (res) => {
+        this.fondoJuego = res[0].fondoJuego;
+      }
+    )
+
     this.api.getJugadores().subscribe((jugadores) => {
       this.jugadores = jugadores;
       this.jugadores.sort((a,b) => {
