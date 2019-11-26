@@ -40,19 +40,60 @@
     }
 
 }
+
+.dashboard_ch {
+    
+    color: #000000;
+    
+    li {
+        list-style: none;
+        outline: none;
+        &:hover {
+            cursor: pointer;
+            color: #000000;
+        }
+    }
+
+    a {
+        text-decoration: none;
+        color: inherit;
+    }
+
+    .brand {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 0 25px;
+        height: 65px;
+
+        h2 {
+            letter-spacing: 10px;
+        }
+    }
+
+}
+
 .contenido {
     margin-left: 65px;
     padding: 25px;
 }
 
+.contenido100{
+    margin:0px;
+    padding:25px;
+    widows: 100%;
+    height:100vh;
+    overflow-y: auto;
+}
+
 .menu {
     li {
-        margin: 10px 0px;
+        margin: 5px 0px;
         display: flex;
         align-items: center;
         justify-content: flex-start;
         padding: 0px 20px 0px 40px;
-
+        height:50px;
         &:hover {
             color: #ECEFF1;
         }
@@ -62,6 +103,37 @@
         // Seleccionado
         &.active {
             background-color: #db1430;
+            color: white;
+            &:after {
+                content: "";
+                position: absolute;
+                width: 0;
+                height: 0;
+                right: 0;
+                border-top: 10px solid transparent;
+                border-bottom: 10px solid transparent;
+                border-right: 10px solid #ECEFF1;
+                border-width: 22px 10px 22px 0;
+            }
+        }
+    }
+    
+}
+
+.menu_ch {
+    li {
+        margin: 5px 0px;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        padding: 0px 20px 0px 40px;
+        height:50px;
+        &:hover {
+            color: #ECEFF1;
+        }
+        // Seleccionado
+        &.active {
+            background-color: #ddd;
             color: white;
             &:after {
                 content: "";

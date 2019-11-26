@@ -1,7 +1,7 @@
-<div class="wrapper dashboard-showing">
+<div class="wrapper dashboard-showing" *ngIf="router.url != '/cms/info'" >
     <div class="aside dashboard">
         <div class="brand">
-            <a routerLink="/cms/inicio"><h2>QUIZZES</h2></a>
+            <a routerLink="/cms/inicio"><h2>TRIVIAS</h2></a>
         </div>
         <div class="aside-wrapper">
             <div class="menu">
@@ -25,5 +25,37 @@
     </div>
     <div class="contenido">
         <router-outlet></router-outlet>
+    </div>
+</div>
+<div class="row wrapper dashboard-showing" *ngIf="router.url === '/cms/info'" >
+    <div class="col-md-1 dashboard_ch">
+        <div class="brand">
+            <a routerLink="/cms/inicio"></a>
+        </div>
+        <div class="aside-wrapper">
+            <div class="menu_ch">
+                <ul>
+                    <li routerLinkActive="active" routerLink="/cms/juego">
+                        <mat-icon svgIcon="gamepad"></mat-icon>
+                    </li>
+                    <li routerLinkActive="active" routerLink="/cms/info">
+                        <mat-icon svgIcon="information"></mat-icon>
+                    </li>
+                    <li routerLinkActive="active" routerLink="/cms/configuracion">
+                        <mat-icon svgIcon="settings-outline"></mat-icon>
+                    </li>
+                </ul>
+            </div>
+            
+        </div>
+    </div>
+    <div class="col-md-11">
+        <div class="col-md-12">
+            <div class="online-players">
+                <span style="display: flex;align-items: center;"><mat-icon svgIcon="account"></mat-icon>&nbsp;<h3>{{jugadores.length}}</h3></span>
+                <p>Jugadores conectados</p>
+            </div>
+            <router-outlet></router-outlet>
+        </div>
     </div>
 </div>

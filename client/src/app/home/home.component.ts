@@ -25,10 +25,12 @@ export class HomeComponent implements OnInit {
   idPreguntaActual: number;
   preguntasTotales: number;
   intervalo;
+  intervalo2;
   termino: boolean = false;
 
   tiempo: number;
   tiempoTranscurrido: number = this.tiempo;
+  ctaRegre: number = 5;
 
   respuestas;
   preguntaRespondida: boolean = false;
@@ -113,8 +115,10 @@ export class HomeComponent implements OnInit {
           this.preguntaActual = this.preguntas[0];
           this.respuestas = this.api.getRespuestasPorPregunta(this.preguntaActual.idPregunta);
           this.idPreguntaActual = 0;
-          this.empezarTiempo();
-        })
+        });
+        
+        this.countdown();
+
       }
 
     });
@@ -151,8 +155,22 @@ export class HomeComponent implements OnInit {
     location.reload(true);
   }
 
+  // Cuenta Regresiva
+  countdown() {
+    this.intervalo2 = setInterval(() => {
+      if(this.ctaRegre > 0) {
+        this.ctaRegre--;
+      } else {
+          this.ctaRegre = 0;
+          clearInterval(this.intervalo2);
+          this.empezarTiempo();
+      }
+    },1000);
+  }
+
   // Empieza el tiempo
   empezarTiempo() {
+    clearInterval(this.intervalo);
     this.intervalo = setInterval(() => {
       if(this.tiempoTranscurrido > 0) {
         this.tiempoTranscurrido--;

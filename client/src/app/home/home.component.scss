@@ -17,7 +17,7 @@ $small-display: 720px;
     align-items: center; 
     padding: 10px 50px 50px 50px;
     background-color: white;
-    border-radius: 10px;
+    border-radius: 5px;
     height: auto;
 
     @media screen and (max-width: $small-display) {
@@ -28,7 +28,7 @@ $small-display: 720px;
 }
 .respuesta {
     margin: 5px 0px;
-    border-radius: 10px;
+    border-radius: 5px;
     padding: 25px;
     text-align: center;
 }
@@ -42,27 +42,27 @@ $small-display: 720px;
     }
 }
 
-.entrar {
+.entrar, .volver {
     background-color: #57b846;
     color: white;
     border: 1px solid #cecece;
     padding: 10px;
     width: 100%;
-    border-radius: 25px;
+    border-radius: 5px;
 }
 
 .input {
     border: none;
     color: #666666;
     background-color: #e6e6e6;
-    border-radius: 10px;
+    border-radius: 5px;
     outline: none;
     display: block;
     margin: 10px 0px;
     padding: 0px 10px;
     height: 50px;
     @media screen and (max-width: $small-display) {
-        width: 95%;
+        width: 100%;
     }
 }
 
@@ -80,7 +80,7 @@ $small-display: 720px;
 
     .pregunta {
         background-color: white;
-        border-radius: 10px;
+        border-radius: 5px;
         flex-grow: 1;
         display: flex;
         flex-wrap: wrap;
@@ -106,7 +106,13 @@ $small-display: 720px;
             justify-content: center;    
             margin: 5px 0px;
             padding: 5px;
-            border-radius: 10px;
+            border-radius: 5px;
         }
+    }
+}
+
+@media (max-width: 576px){
+    .volver{
+        margin-top: 50px;
     }
 }

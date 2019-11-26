@@ -20,9 +20,9 @@
                         <h2 class="welcome text-center">{{configuracion.titulo}}</h2>
                         <form [formGroup]="jugadorForm" (ngSubmit)="entrarSala(jugadorForm.value)">
                                 <div>
-                                    <input class="input" id="name" type="text" formControlName="nombre" placeholder="Nombre">
+                                    <input class="input" id="name" type="text" formControlName="nombre" placeholder="Nombre del Equipo">
                                 </div>
-                            <button class="entrar" type="submit">Entrar</button>
+                            <button class="entrar" type="submit">Listo</button>
                         </form>
                     </div>
                 </div>
@@ -41,42 +41,53 @@
             </ng-container>
 
             <ng-template #preguntasPendientes>
-                <div class="container-fluid h-100">
-                    <div class="container d-flex flex-column" style="background:transparent; center; align-items: center;position: relative;border-radius: 10px; margin-top:30px;">
-                        <img *ngIf='preguntaActual.url != null' style="width:80%;" [src]="preguntaActual.url" alt="">
-                        <p [ngStyle]="{'color': configuracion.colorLetraPregunta, 'font-size':'25px'}">{{preguntaActual.pregunta}}</p>
-                    </div>
-                    <div class="container-fluid h-50 d-flex flex-column" style="padding-bottom: 10px;">
-                        <ng-container
-                            *ngIf="!preguntaRespondida; then antesDeResponder; else despuesDeResponder">
-                        </ng-container>
-                        <ng-template #antesDeResponder>
-                            <div class="row" style="height: 100%;">
-                                <div class="col-sm-12 col-md-12 respuesta"
-                                  *ngFor="let respuesta of respuestas | async; let i = index"
-                                      [ngStyle]="{'background-color': colores[i]}"
-                                      (click)="responderPregunta(respuesta.correcta)">
-                                          <p>{{respuesta.respuesta}}</p>
-                                </div>
+                <ng-container
+                    *ngIf="ctaRegre>0; then cuentaRegresiva; else arrancaJuego">
+                </ng-container>
+                <ng-template #cuentaRegresiva>
+                        <div class="container-fluid h-100 text-center" [ngStyle]="{'background':configuracion.fondoJuego,'padding-top':'50px'}">
+                            <span [ngStyle]="{'color':configuracion.colorLetraPregunta,'font-size':'150px'}">{{ctaRegre}}</span>
+                        </div>
+                </ng-template>
+                <ng-template #arrancaJuego>
+                        <div class="container-fluid h-100">
+                            <div class="container d-flex flex-column" style="background:transparent; center; align-items: center;position: relative;border-radius: 10px; margin-top:30px;">
+                                <img *ngIf='preguntaActual.url != null' style="width:80%;" [src]="preguntaActual.url" alt="">
+                                <p [ngStyle]="{'color': configuracion.colorLetraPregunta, 'font-size':'25px'}">{{preguntaActual.pregunta}}</p>
                             </div>
-                        </ng-template>
-                        <ng-template #despuesDeResponder>
-                            <div *ngIf="respuestaCorrecta" class="flex-grow-1">
-                                <div class="flex-grow-1" style="background-color: #28a745; margin: 20px 0px; padding:5px;">
-                                    <p style="color: white; font-size:20px; font-weight:bold; width:100%; text-align:center; margin-top:10px;">CORRECTO</p>
-                                </div>
+                            <div class="container-fluid h-50 d-flex flex-column" style="padding-bottom: 10px;">
+                                <ng-container
+                                    *ngIf="!preguntaRespondida; then antesDeResponder; else despuesDeResponder">
+                                </ng-container>
+                                <ng-template #antesDeResponder>
+                                    <div class="row" style="height: 100%;">
+                                        <div class="col-sm-12 col-md-12 respuesta"
+                                            *ngFor="let respuesta of respuestas | async; let i = index"
+                                                [ngStyle]="{'background-color': colores[i]}"
+                                                (click)="responderPregunta(respuesta.correcta)">
+                                                    <p>{{respuesta.respuesta}}</p>
+                                        </div>
+                                    </div>
+                                </ng-template>
+                                <ng-template #despuesDeResponder>
+                                    <div *ngIf="respuestaCorrecta" class="flex-grow-1">
+                                        <div class="flex-grow-1" style="background-color: #28a745; margin: 20px 0px; padding:5px;">
+                                            <p style="color: white; font-size:20px; font-weight:bold; width:100%; text-align:center; margin-top:10px;">CORRECTO</p>
+                                        </div>
+                                    </div>
+                                    <div *ngIf="!respuestaCorrecta" class="correcto">
+                                        <div class="flex-grow-1" style="background-color: #d63131; margin: 20px 0px; padding:5px;">
+                                            <p style="color: white; font-size:20px; font-weight:bold; width:100%; text-align:center; margin-top:10px;">INCORRECTO</p>
+                                        </div>
+                                    </div>
+                                </ng-template>
+                                <span class="tiempo" [ngStyle]="{'color': configuracion.colorLetraPregunta}">{{tiempoTranscurrido}}</span>
+        
                             </div>
-                            <div *ngIf="!respuestaCorrecta" class="correcto">
-                              <div class="flex-grow-1" style="background-color: #d63131; margin: 20px 0px; padding:5px;">
-                                  <p style="color: white; font-size:20px; font-weight:bold; width:100%; text-align:center; margin-top:10px;">INCORRECTO</p>
-                              </div>
-                            </div>
-                        </ng-template>
-                        <span class="tiempo" [ngStyle]="{'color': configuracion.colorLetraPregunta}">{{tiempoTranscurrido}}</span>
-
-                    </div>
-
-                </div>
+        
+                        </div>    
+                </ng-template>
+                
             </ng-template>
             <ng-template #terminoJuego>
                 <div class="game-wrapper">
