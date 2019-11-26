@@ -107,7 +107,7 @@ export class HomeComponent implements OnInit {
       // Si el jugador ya esta dentro de la sala entonces cargo todas las preguntas
       if(this.entroASala) {
         console.log(this.idJugador);
-        this.api.updateJugador({idJugador: this.idJugador, jugando: juego.idJuego, preguntaActual: 1, puntaje: 0, nombre: this.nombreJugador}).subscribe(
+        this.api.updateJugador({idJugador: this.idJugador, jugando: juego.idJuego, preguntaActual: 1, puntaje: 0, nombre: this.nombreJugador,correctas:0,incorrectas:0}).subscribe(
           (res) => {console.log(res)},
           (err) => {console.log(err)}
         );
@@ -213,7 +213,9 @@ export class HomeComponent implements OnInit {
       nombre: this.nombreJugador,
       jugando: 0,
       puntaje: 0,
-      preguntaActual: 0
+      preguntaActual: 0,
+      correctas: this.sumacorrecta,
+      incorrectas: this.sumaincorrecta,
     }
     this.api.updateJugador(data).subscribe();
   }
@@ -226,7 +228,9 @@ export class HomeComponent implements OnInit {
       nombre: this.nombreJugador,
       jugando: this.juego.idJuego,
       preguntaActual: 0,
-      puntaje: this.puntaje
+      puntaje: this.puntaje,
+      correctas: this.sumacorrecta,
+      incorrectas: this.sumaincorrecta
     };
     if(this.idPreguntaActual == this.preguntasTotales) {
       this.termino = true;
@@ -245,7 +249,6 @@ export class HomeComponent implements OnInit {
       preguntaActual: this.idPreguntaActual,
       puntaje: this.puntaje
     });
-    alert('seba');
     this.api.updateJugador(data).subscribe();
 
   }
