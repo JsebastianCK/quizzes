@@ -36,7 +36,11 @@ export class InfoComponent implements OnInit {
         return 0;
       });
     })
-
+    this.webSocket.listen('terminoTodo').subscribe(
+      (res) => {
+        this.terminoPartida = true;
+      }
+    )
     this.webSocket.listen('entrarSala').subscribe((data) => {
       this.jugadores.push(data);
       this.jugadores.sort((a,b) => {
@@ -51,20 +55,20 @@ export class InfoComponent implements OnInit {
     this.webSocket.listen('pasoPregunta').subscribe((data) => {
       this.api.getJugadores().subscribe((jugadores) => {
         this.jugadores = jugadores;
-        this.terminoPartida = this.checkFinPartida();
+        // this.terminoPartida = this.checkFinPartida();
 
-        if(this.terminoPartida)
-          this.webSocket.send('terminoTodo');
+        // if(this.terminoPartida)
+        //   this.webSocket.send('terminoTodo');
       })
     })
     
-    window.setInterval(() => {
-      if(this.jugadores.length > 0) {
-        this.terminoPartida = this.checkFinPartida();
-        if(this.terminoPartida)
-            this.webSocket.send('terminoTodo');
-      }
-    }, 1000);
+    // window.setInterval(() => {
+    //   if(this.jugadores.length > 0) {
+    //     this.terminoPartida = this.checkFinPartida();
+    //     if(this.terminoPartida)
+    //         this.webSocket.send('terminoTodo');
+    //   }
+    // }, 1000);
 
     this.webSocket.listen('salirSala').subscribe((idJugador) => {
       // Busco el jugador que se fue por ID y lo elimino de la lista.
@@ -78,14 +82,14 @@ export class InfoComponent implements OnInit {
 
   }
 
-  checkFinPartida() {
-    // Chequeo que todos los jugadores hayan terminado de jugar para anunciar al ganador final
-    let terminaron = true;
-    this.jugadores.forEach(jugador => {
-      if(jugador.jugando != -1)
-        terminaron = false;
-    });
-    return terminaron;
-  }
+  // checkFinPartida() {
+  //   // Chequeo que todos los jugadores hayan terminado de jugar para anunciar al ganador final
+  //   let terminaron = true;
+  //   this.jugadores.forEach(jugador => {
+  //     if(jugador.jugando != -1)
+  //       terminaron = false;
+  //   });
+  //   return terminaron;
+  // }
 
 }

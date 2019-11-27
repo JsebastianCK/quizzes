@@ -8,9 +8,6 @@ import { ApiService } from 'src/app/api.service';
   styleUrls: ['./control.component.scss']
 })
 export class ControlComponent implements OnInit {
-  
-  @Input()
-  jugador
 
   jugadores;
   fondoJuego;
@@ -56,6 +53,11 @@ export class ControlComponent implements OnInit {
 
   expulsarJugador(jugador) {
     this.webSocket.send('expulsarJugador' , jugador);
+    this.ngOnInit();
+  }
+
+  finalizarPartida() {
+    this.webSocket.send('terminoTodo');
   }
 
 }

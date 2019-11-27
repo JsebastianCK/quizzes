@@ -45,8 +45,6 @@ export class JugadorComponent implements OnInit {
               this.progresoerr = (this.jugador.incorrectas) * 100 / this.preguntasTotales;
             }
           )
-        } else {
-          this.color = 'accent';
         }
 
       }

@@ -1,4 +1,7 @@
-<div class="container-fluid d-flex" style="height: 100%; float:left; min-height:100vh;align-items: center;justify-content: center;flex-direction: column" >
+<div class="container-fluid d-flex" style="height: 100%; float:left; min-height:100vh;align-items: center;flex-direction: column" >
+    <div class="container-fluid" style="width: 80%">
+        <button mat-raised-button color="primary" style="float: right; margin: 10px 0px" (click)='finalizarPartida()'>Terminar la Partida</button>
+    </div>
     <div class="container-fluid cajita" style="width: 80%;background-color: rgba(255, 255, 255, 0.25);padding: 10px 25px;">
         <p *ngIf="jugadores.length == 0">Todavia no hay nadie conectado.</p> 
         <div *ngFor='let jugador of jugadores'>

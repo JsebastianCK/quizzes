@@ -4,7 +4,7 @@ import { WebsocketService } from '../../websocket.service';
 import {MatTableDataSource} from '@angular/material/table';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { SeriesCreateComponent } from './series-create/series-create.component';
-import { MatPaginator } from '@angular/material';
+import { MatPaginator, MatSnackBar } from '@angular/material';
 import { Router } from '@angular/router';
 
 @Component({
@@ -29,7 +29,7 @@ export class SeriesComponent implements OnInit {
 
   nuevaSerie;
 
-  constructor(private api: ApiService, private webSocket: WebsocketService, public dialog: MatDialog, private router: Router) { }
+  constructor(private api: ApiService, private webSocket: WebsocketService, public dialog: MatDialog, private router: Router, private snackBar: MatSnackBar) { }
 
   ngOnInit() {
     this.api.getJuegos().subscribe((juegos) => {
@@ -40,7 +40,7 @@ export class SeriesComponent implements OnInit {
 
   iniciarJuego(juego) {
     this.webSocket.send('iniciarJuego' , juego);
-    //window.open('/cms/info', '_blank');
+    this.snackBar.open('Se inicio el juego!' , juego.descripcion , {duration: 2500})
   }
 
   aplicarFiltro(filtro) {

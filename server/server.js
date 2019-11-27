@@ -57,7 +57,7 @@ io.on('connection' , (socket) => {
         io.to(jugador.idJugador).emit('expulsado');
         Jugador.deleteJugador(jugador.idJugador , () => {});
         io.emit('salirSala' , idJugador);
-        socket.disconnect();
+        // socket.disconnect();
     });
 
     socket.on('disconnect', function() {
@@ -72,6 +72,7 @@ io.on('connection' , (socket) => {
     })
 
     socket.on('terminoTodo' , () => {
+        console.log('se termino');
         io.emit('terminoTodo');
     })
 })
