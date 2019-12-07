@@ -32,7 +32,9 @@ io.on('connection' , (socket) => {
             nombre: jugador.nombre,
             puntaje: 0,
             preguntaActual: 0,
-            jugando: 0
+            jugando: 0,
+            correctas: 0,
+            incorrectas: 0
         } , () => {});
         io.emit('entrarSala' , jugador);
         io.to(jugador.idJugador).emit('devolverID' , idJugador);
@@ -72,7 +74,6 @@ io.on('connection' , (socket) => {
     })
 
     socket.on('terminoTodo' , () => {
-        console.log('se termino');
         io.emit('terminoTodo');
     })
 })

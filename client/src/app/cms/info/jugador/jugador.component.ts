@@ -51,6 +51,7 @@ export class JugadorComponent implements OnInit {
     )
     this.webSocket.listen('pasoPregunta').subscribe(
       (res) => {
+        alert('si');
         if(res.idJugador == this.jugador.idJugador) {
           this.actualizarJugador(res);
         }
@@ -69,6 +70,8 @@ export class JugadorComponent implements OnInit {
   actualizarJugador(actualizacion) {
     this.jugador.puntaje = actualizacion.puntaje
     this.jugador.preguntaActual = actualizacion.preguntaActual;
+    this.jugador.correctas = actualizacion.correctas;
+    this.jugador.incorrectas = actualizacion.incorrectas;
     this.progresook  = (this.jugador.correctas) * 100 / this.preguntasTotales;
     this.progresoerr = (this.jugador.incorrectas) * 100 / this.preguntasTotales;
   }

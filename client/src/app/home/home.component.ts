@@ -254,7 +254,9 @@ export class HomeComponent implements OnInit {
     this.webSocket.send('pasoPregunta' , {
       nombre: this.nombreJugador,
       preguntaActual: this.idPreguntaActual,
-      puntaje: this.puntaje
+      puntaje: this.puntaje,
+      correctas: this.sumacorrecta,
+      incorrectas: this.sumaincorrecta
     });
     this.api.updateJugador(data).subscribe();
 

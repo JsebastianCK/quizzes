@@ -30,9 +30,9 @@ export class InfoComponent implements OnInit {
       this.jugadores = jugadores;
       this.jugadores.sort((a,b) => {
         if(a.puntaje < b.puntaje)
-        return 1
+          return 1
         if(a.puntaje > b.puntaje)
-        return -1
+          return -1
         return 0;
       });
     })
@@ -52,15 +52,15 @@ export class InfoComponent implements OnInit {
       });
     });
 
-    this.webSocket.listen('pasoPregunta').subscribe((data) => {
-      this.api.getJugadores().subscribe((jugadores) => {
-        this.jugadores = jugadores;
-        // this.terminoPartida = this.checkFinPartida();
+    // this.webSocket.listen('pasoPregunta').subscribe((data) => {
+    //   this.api.getJugadores().subscribe((jugadores) => {
+    //     this.jugadores = jugadores;
+    //     // this.terminoPartida = this.checkFinPartida();
 
-        // if(this.terminoPartida)
-        //   this.webSocket.send('terminoTodo');
-      })
-    })
+    //     // if(this.terminoPartida)
+    //     //   this.webSocket.send('terminoTodo');
+    //   })
+    // })
     
     // window.setInterval(() => {
     //   if(this.jugadores.length > 0) {
