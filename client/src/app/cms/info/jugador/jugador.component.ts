@@ -51,7 +51,6 @@ export class JugadorComponent implements OnInit {
     )
     this.webSocket.listen('pasoPregunta').subscribe(
       (res) => {
-        alert('si');
         if(res.idJugador == this.jugador.idJugador) {
           this.actualizarJugador(res);
         }
