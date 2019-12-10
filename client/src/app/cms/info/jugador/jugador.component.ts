@@ -61,6 +61,7 @@ export class JugadorComponent implements OnInit {
         this.preguntasTotales = res.cantPreguntas;
         this.progresook = 0;
         this.progresoerr = 0;
+        this.jugador.jugando = 1;
         this.modo = 'determinate';
       }
     )
