@@ -38,6 +38,16 @@ export class InfoComponent implements OnInit {
     })
     this.webSocket.listen('terminoTodo').subscribe(
       (res) => {
+        this.api.getJugadores().subscribe((jugadores) => {
+          this.jugadores = jugadores;
+          this.jugadores.sort((a,b) => {
+            if(a.puntaje < b.puntaje)
+              return 1
+            if(a.puntaje > b.puntaje)
+              return -1
+            return 0;
+          });
+        })
         this.terminoPartida = true;
       }
     )
